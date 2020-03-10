@@ -3,12 +3,45 @@
 #include "estrutura.h"
 #include <stdlib.h>
 
-
-int obter_estado_casa(ESTADO *e, COORDENADA c)
+void set_ultima_jogada(ESTADO *e,COORDENADA c)
 {
-    int colunaJ,linhaJ;
-    c.coluna = colunaJ;
-    c.linha = linhaJ;
+    COORDENADA ult_jog = {c.linha,c.coluna};
+    e->ultima_jogada = ult_jog;
+}
+
+void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c)
+{
+    e->tab[c.linha][c.coluna] = BRANCA;
+}
+void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c)
+{
+    e->tab[c.linha][c.coluna] = PRETA;
+}
+
+
+
+COORDENADA obter_pos_jogador(ESTADO *e)
+{
+    int i=0,j=0;
+    COORDENADA joga = {i,j};
+    for (i ; i <8 ; ++i)
+    {
+        for ( j; j <8 ; ++j)
+        {
+           if ( e->tab[i][j] == PRETA)
+               return joga;
+
+        }
+
+    }
+
+}
+
+
+CASA obter_estado_casa(ESTADO *e, COORDENADA c)
+{
+
+    return e->tab[c.linha][c.coluna];
 
 
 }
