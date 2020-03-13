@@ -12,7 +12,7 @@ int jogar (ESTADO *estado, COORDENADA c){
     }
     else return 0;
 }
-valido(ESTADO *e , COORDENADAS c) 
+int valido(ESTADO *e , COORDENADAS c) 
 {
     return 1 ;
 }
