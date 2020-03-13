@@ -1,7 +1,7 @@
 #ifndef CamadaDeInterface_H
 #define CamadaDeInterface_H
 
-void mostrar_tabuleiro(Estado *e);
+void mostrar_tabuleiro(ESTADO *e);
 
 void interpretador(ESTADO *e);
 
