@@ -1,7 +1,10 @@
 #include "estrutura.h"
 #include <stdio.h>
 
-
+int valido(ESTADO *e , COORDENADA c) 
+{
+    return 1 ;
+}
 int jogar (ESTADO *estado, COORDENADA c){
     printf ("jogar %d %d\n",c.coluna ,c.linha);
 
@@ -12,7 +15,4 @@ int jogar (ESTADO *estado, COORDENADA c){
     }
     else return 0;
 }
-int valido(ESTADO *e , COORDENADA c) 
-{
-    return 1 ;
-}
+
