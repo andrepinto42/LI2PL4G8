@@ -1,3 +1,11 @@
+#include "estrutura.h"
+#include <stdio.h>
+#include "lógica.h"
+#include <stdlib.h>
+#include <string.h>
+
+#define BUF_SIZE 1024
+
 // Função que imprime o tabuleiro
 void mostrar_tabuleiro(ESTADO *e){
     int a,b;
@@ -11,6 +19,7 @@ void mostrar_tabuleiro(ESTADO *e){
                 printf("2");
             else printf(".");
         }
+        printf("\n");
     }
 }
 
@@ -18,6 +27,7 @@ void mostrar_tabuleiro(ESTADO *e){
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
+    mostrar_tabuleiro(e);
 
     if(fgets(linha, BUF_SIZE, stdin) == NULL)
         return 0;
