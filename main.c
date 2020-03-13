@@ -4,5 +4,5 @@
 
 int main()
 {
-
+ESTADO *e = inicializar_estado();
 }
