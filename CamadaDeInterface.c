@@ -13,11 +13,16 @@ void mostrar_tabuleiro(ESTADO *e){
         for ( b=0 ; b<=7 ; b++){
             if ( a == 7 && b == 0 )
                 printf("1");
-            else if ( a == 4 && b == 4 )
-                printf("*");
+            
             else if ( a== 0 && b == 7)
                 printf("2");
-            else printf(".");
+             else if (e->tab[a][b] == VAZIO)
+            printf(".");
+            else if (e->tab[a][b] == BRANCA)
+            printf("*");
+            else
+                printf("#");
+           
         }
         printf("\n");
     }
