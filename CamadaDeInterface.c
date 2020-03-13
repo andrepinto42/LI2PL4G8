@@ -1,3 +1,5 @@
+#include "estrutura.h"
+#include <stdio.h>
 
 void mostrar_tabuleiro(Estado *e){
     int a,b;
