@@ -1,0 +1,1 @@
+int jogar (ESTADO *estado, COORDENADA c)
