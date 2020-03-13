@@ -1,7 +1,7 @@
 #include "estrutura.h"
 #include <stdio.h>
 
-void mostrar_tabuleiro(Estado *e){
+void mostrar_tabuleiro(ESTADO *e){
     int a,b;
     for ( a=0 ; a<=7 ; a++){
         for ( b=0 ; b<=7 ; b++){
