@@ -67,11 +67,7 @@ ESTADO *inicializar_estado() {
     for (int i = 0; i <8 ; ++i) {       // preenche o tabuleiro com VAZIO
         for (int j = 0; j <8 ; ++j) {
             e->tab[i][j] = VAZIO;
-            if(i==3 && j ==4)
-                printf("*");
-            else printf(".");
         }
-        printf("\n");
     }
     e->tab[3][4] = PRETA;
 
