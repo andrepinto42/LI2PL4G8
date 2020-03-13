@@ -1,8 +1,7 @@
-#ifndef UNTITLED2_LIBRARY_H
-#define UNTITLED2_LIBRARY_H
+#ifndef CamadaDeInterface_H
+#define CamadaDeInterface_H
 
-void mostrar_tabuleiro(Estado *e){
+void mostrar_tabuleiro(Estado *e);
 
-}
-
-#endif //UNTITLED2_LIBRARY_H
+void interpretador(ESTADO *e);
+#endif //CamadaDeInterface

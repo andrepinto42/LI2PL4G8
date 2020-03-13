@@ -3,16 +3,17 @@ void mostrar_tabuleiro(ESTADO *e){
     int a,b;
     for ( a=0 ; a<=7 ; a++){
         for ( b=0 ; b<=7 ; b++){
-            if ( a == 0 && b == 0 )
+            if ( a == 7 && b == 0 )
                 printf("1");
-            else if ( a == 5 && b == 5 )
+            else if ( a == 4 && b == 4 )
                 printf("*");
-            else if ( a== 7 && b == 7)
+            else if ( a== 0 && b == 7)
                 printf("2");
             else printf(".");
         }
     }
 }
+
 //Interpretador fornecido pelo guião
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
