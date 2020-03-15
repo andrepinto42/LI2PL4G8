@@ -8,17 +8,18 @@
 
 // Função que imprime o tabuleiro
 void mostrar_tabuleiro(ESTADO *e){
-    int a,b;
-    for ( a=0 ; a<=7 ; a++){
-        for ( b=0 ; b<=7 ; b++){
+    int a=0,b=0;
+    COORDENADA c={a,b};
+    for ( a ; a<=7 ; a++){
+        for ( b ; b<=7 ; b++){
             if ( a == 7 && b == 0 )
                 printf("1");
             
             else if ( a== 0 && b == 7)
                 printf("2");
-             else if (e->tab[a][b] == VAZIO)
+             else if (obter_estado_casa(e,c) == VAZIO)
             printf(".");
-            else if (e->tab[a][b] == BRANCA)
+            else if (obter_estado_casa(e,c) == BRANCA)
             printf("*");
             else
                 printf("#");
