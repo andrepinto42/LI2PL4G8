@@ -38,10 +38,10 @@ COORDENADA obter_pos_jogador(ESTADO *e)
 }
 
 
-CASA obter_estado_casa(ESTADO *e, COORDENADA c)
+CASA obter_estado_casa(ESTADO *e, int linha,int coluna)
 {
 
-    return e->tab[c.linha][c.coluna];
+    return e->tab[linha][coluna];
 
 
 }
