@@ -23,7 +23,7 @@ typedef struct {
 ESTADO *inicializar_estado();
 int obter_jogador_atual(ESTADO *estado);
 int obter_numero_de_jogadas(ESTADO *estado);
-CASA obter_estado_casa(ESTADO *e, COORDENADA c);
+CASA obter_estado_casa(ESTADO *e, int linha, int coluna);
 COORDENADA obter_pos_jogador(ESTADO *e);
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c);
 void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c);
