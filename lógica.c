@@ -6,7 +6,7 @@ int valido(ESTADO *e , COORDENADA c)
     return 1 ;
 }
 int jogar (ESTADO *estado, COORDENADA c){
-    printf ("jogar %d %d\n",c.coluna ,c.linha);
+    printf ("jogar %d %d\n",c.coluna ,7-c.linha);
 
     if (valido(estado,c))
     {
