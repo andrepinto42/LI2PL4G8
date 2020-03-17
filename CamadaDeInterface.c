@@ -8,22 +8,21 @@
 
 // Função que imprime o tabuleiro
 void mostrar_tabuleiro(ESTADO *e){
-    int a=0,b=0;
-    
-    for ( a ; a<=7 ; a++){
-        for ( b ; b<=7 ; b++){
-            if ( a == 7 && b == 0 )
+
+    for (int j = 0; j <8 ; ++j)
+    {
+        for (int i = 0; i < 8; ++i) {
+            if (i==0 && j==7)
                 printf("1");
-            
-            else if ( a== 0 && b == 7)
+            else if (i== 7 && j == 0)
                 printf("2");
-             else if (obter_estado_casa(e,a,b) == VAZIO)
-            printf(".");
-            else if (obter_estado_casa(e,a,b) == BRANCA)
-            printf("*");
-            else
+
+            else if (obter_estado_casa(e,j,i) == VAZIO)
+                printf(".");
+            else if (obter_estado_casa(e,j,i) == PRETA)
                 printf("#");
-           
+            else
+                printf("*");
         }
         printf("\n");
     }
@@ -39,7 +38,7 @@ int interpretador(ESTADO *e) {
         return 0;
 
     if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
-        COORDENADA coord = {*col - 'a', *lin - '1'};
+        COORDENADA coord = {(*col - 'a'),7- (*lin - '1')};
         jogar(e, coord);
         mostrar_tabuleiro(e);
     }
