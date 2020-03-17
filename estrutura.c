@@ -11,10 +11,12 @@ void set_ultima_jogada(ESTADO *e,COORDENADA c)
 
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c)
 {
+
     e->tab[c.linha][c.coluna] = BRANCA;
 }
 void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c)
 {
+
     e->tab[c.linha][c.coluna] = PRETA;
 }
 
@@ -40,10 +42,7 @@ COORDENADA obter_pos_jogador(ESTADO *e)
 
 CASA obter_estado_casa(ESTADO *e, int linha,int coluna)
 {
-
     return e->tab[linha][coluna];
-
-
 }
 
 int obter_jogador_atual(ESTADO *estado)
@@ -59,17 +58,20 @@ int obter_numero_de_jogadas(ESTADO *estado)
 
 
 
-ESTADO *inicializar_estado() {
+ESTADO *inicializar_estado()
+{
     ESTADO *e = (ESTADO *) malloc(sizeof(ESTADO));
     e->jogador_atual = 1; // O Jogador da primeira jogada
     e->num_jogadas = 0; // quantas jogadas foram efetuadas
 
-    for (int i = 0; i <8 ; ++i) {       // preenche o tabuleiro com VAZIO
-        for (int j = 0; j <8 ; ++j) {
+    for (int i = 0; i <8 ; ++i)
+    {       // preenche o tabuleiro com VAZIO
+        for (int j = 0; j <8 ; ++j)
+        {
             e->tab[i][j] = VAZIO;
         }
     }
-    e->tab[3][4] = PRETA;
+    e->tab[3][4] = BRANCA;
 
     return e;
 }
