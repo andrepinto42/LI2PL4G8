@@ -5,9 +5,15 @@ int valido(ESTADO *e , COORDENADA c)
 {
     return 1 ;
 }
+<<<<<<< HEAD
 int jogar (ESTADO *estado, COORDENADA c)
 {
     printf ("jogar %d %d\n",c.coluna ,7-(c.linha));
+=======
+int jogar (ESTADO *estado, COORDENADA c){
+    printf ("jogar %d %d\n",c.coluna ,7-c.linha);
+
+>>>>>>> bb1d8308582b2172d0730fc2c3c65afd0b5b377e
     if (valido(estado,c))
     {
      set_Branca_Tabuleiro(estado,c);
