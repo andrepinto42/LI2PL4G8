@@ -1,7 +1,22 @@
 #ifndef RASTROS02_ESTRUTURA_H
 #define RASTROS02_ESTRUTURA_H
 
-typedef enum {VAZIO, BRANCA, PRETA} CASA;
+typedef enum {
+    OK,
+    COORDENADA_INVALIDA,
+    JOGADA_INVALIDA,
+    ERRO_LER_TAB,
+    ERRO_ABRIR_FICHEIRO,
+} ERROS;
+
+typedef enum {
+    UM = '1',
+    DOIS = '2',
+    VAZIO = '.',
+    BRANCA = '*',
+    PRETA = '#'
+} CASA;
+
 typedef struct {
     int coluna;
     int linha;
@@ -28,6 +43,9 @@ COORDENADA obter_pos_jogador(ESTADO *e);
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c);
 void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c);
 void set_ultima_jogada(ESTADO *e,COORDENADA c);
+int print_prompt(ESTADO *e,int iteracoes);
+void set_numero_de_jogadas(ESTADO *e);
+void set_jogador_atual(ESTADO *e,int jogador);
 
 
 #endif //RASTROS02_ESTRUTURA_H
