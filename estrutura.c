@@ -3,10 +3,10 @@
 #include "estrutura.h"
 #include <stdlib.h>
 
+
 void set_ultima_jogada(ESTADO *e,COORDENADA c)
 {
     COORDENADA ult_jog = {c.linha,c.coluna};
-    e->ultima_jogada = ult_jog;
 }
 
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c)
@@ -32,17 +32,24 @@ COORDENADA obter_pos_jogador(ESTADO *e)
         {
            if ( e->tab[i][j] == PRETA)
                return joga;
-
         }
-
     }
-
 }
 
 
 CASA obter_estado_casa(ESTADO *e, int linha,int coluna)
 {
     return e->tab[linha][coluna];
+}
+
+void set_jogador_atual(ESTADO *e,int jogador)
+{
+    e->jogador_atual = jogador;
+}
+
+void set_numero_de_jogadas(ESTADO *e)
+{
+    e->num_jogadas = e->num_jogadas + 1;
 }
 
 int obter_jogador_atual(ESTADO *estado)
@@ -56,7 +63,12 @@ int obter_numero_de_jogadas(ESTADO *estado)
 }
 
 
-
+int print_prompt(ESTADO *e,int iteracoes)
+{
+    printf("# %d PL%d (%d)> ",
+           iteracoes,obter_jogador_atual(e),obter_numero_de_jogadas(e)) ;
+    return 1;
+}
 
 ESTADO *inicializar_estado()
 {
