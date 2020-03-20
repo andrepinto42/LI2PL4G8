@@ -32,16 +32,20 @@ void mostrar_tabuleiro(ESTADO *e){
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
+    int i=0;
     mostrar_tabuleiro(e);
-
-    if(fgets(linha, BUF_SIZE, stdin) == NULL)
-        return 0;
-
-    if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
-        COORDENADA coord = {(*col - 'a'),7- (*lin - '1')};
-        jogar(e, coord);
-        mostrar_tabuleiro(e);
-    }
+    
+    while ( print_prompt(e,i) && fgets(linha, BUF_SIZE, stdin) != NULL)
+        {
+         if( (strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) )
+         {
+            COORDENADA coord = {(*col - 'a'),7- (*lin - '1')};
+            jogar(e, coord);
+            mostrar_tabuleiro(e);
+         }
+         else return 0;
+         i++;
+        }
     return 1;
 }
 
