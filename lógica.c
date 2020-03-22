@@ -1,8 +1,5 @@
 #include "estrutura.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 
 
 int valido(ESTADO *e , COORDENADA c)
@@ -21,48 +18,83 @@ int valido(ESTADO *e , COORDENADA c)
     return 0 ;
 }
 
-int fim (ESTADO *e, COORDENADA c)
-{
-    {
-        if ( c.coluna==0 && c.linha ==8 )
-            return 3;
-        if (c.coluna ==8 && c.linha ==0)
-            return 2;
-        if ( e-> tab[c.linha][c.coluna+1] ==PRETA && e-> tab[c.linha-1][c.coluna+1]==PRETA
-             && e-> tab[c.linha-1][c.coluna-1] == PRETA && e-> tab[c.linha-1][c.coluna]==PRETA &&
-        e-> tab[c.linha-1][c.coluna-1] == PRETA &&e-> tab[c.linha][c.coluna-1]==PRETA &&
-        e-> tab[c.linha+1][c.coluna]==PRETA && e-> tab[c.linha+1][c.coluna+1]==PRETA &&
-        e-> tab[c.linha][c.coluna]==BRANCA )
-        {
-            return 4;
-        }
-        if (( e-> tab[c.linha][8]==BRANCA && e-> tab[c.linha-1][8]==PRETA
-              && e-> tab[c.linha-1][c.coluna-1] == PRETA && e-> tab[c.linha][c.coluna-1]==PRETA &&
-              e-> tab[c.linha+1][8]==PRETA && e-> tab[c.linha+1][c.coluna-1]==PRETA) ||
-            (e-> tab[0][c.coluna-1]==PRETA && e-> tab[0][c.coluna+1] == PRETA &&
-             e-> tab[0][c.coluna]==BRANCA && e-> tab[c.linha+1][c.coluna]==PRETA &&
-             e-> tab[c.linha+1][c.coluna-1]==PRETA && e-> tab[c.linha+1][c.coluna+1]==PRETA) ||
+int verificar_enc_meio (ESTADO *e, COORDENADAS c){
+ if (obter_estado_casa (e, linha+1,coluna) ==PRETA && obter_estado_casa (e,c.linha-1,c.coluna+1)==PRETA 
+    && obter_estado_casa (e,c.linha-1 ,c.coluna-1) == PRETA && obter_estado_casa (e,c.linha-1,c.coluna)==PRETA &&
+    && obter_estado_casa (e,c.linha ,c.coluna-1)==PRETA && obter_estado_casa (e,c.linha+1 ,c.coluna-1)==PRETA &&
+     obter_estado_casa (e,c.linha+1 ,c.coluna+1)==PRETA && obter_estado_casa (e,c.linha,c.coluna+1) &&
+      obter_estado_casa (e,c.linha,c.coluna]==BRANCA ){
+        return 1;  
+      }
 
-            ( e-> tab[c.linha][0] == BRANCA  && e-> tab[c.linha+1][0]==PRETA
-              && e-> tab[c.linha-1][c.coluna+1] == PRETA && e-> tab[c.linha][c.coluna+1]==PRETA &&
-              e-> tab[c.linha-1][0]==PRETA && e-> tab[c.linha+1][c.coluna+1]==PRETA)||
+   int verificar_enc_ladod (ESTADO *e, COORDENADAS c){
+      if obter_estado_casa (e,c.linha ,8)==BRANCA && obter_estado_casa (e,c.linha-1,8)==PRETA
+    && obter_estado_casa(e,c.linha-1,c.coluna-1) == PRETA && obter_estado_casa(e,c.linha,c.coluna-1)==PRETA 
+    && obter_estado_casa (e,c.linha+1,8)==PRETA && obter_estado_casa (e,c.linha+1,c.coluna-1)==PRETA) {
+     return 1 ;
+   }  
+   }  
 
-            ( e-> tab[8][c.coluna-1]==PRETA && e-> tab[8][c.coluna+1] == PRETA &&
-              e-> tab[8][c.coluna]==BRANCA && e-> tab[c.linha-1][c.coluna+1]==PRETA &&
-              e-> tab[c.linha-1][c.coluna-1]==PRETA &&  e->tab[c.linha-1][c.coluna]==PRETA) ||
+   int verificar_enc_cima (ESTADO *e, COORDENADAS c){
+    if (obter_estado_casa(e,8 ,c.coluna-1)==PRETA && obter_estado_casa(e,8 ,c.coluna+1)== PRETA &&
+    obter_estado_casa(e,8,c.coluna)==BRANCA && obter_estado_casa(e,c.linha-1 ,c.coluna)==PRETA &&
+    obter_estado_casa(e,c.linha-1,c.coluna-1)==PRETA && obter_estado_casa (e,c.linha-1 ,c.coluna+1)==PRETA) {
+        return 1;
+    }
+   }
 
-            (e->tab[0][0]==BRANCA && e->tab[0][1]==PRETA && e->tab[1][0]==PRETA && e->tab[1][1]==PRETA) ||
-            (e->tab[8][8]==BRANCA && e->tab[7][8]==PRETA && e->tab[7][7]==PRETA && e->tab[8][7]==PRETA ))
+   int verificar_enc_ladoe (ESTADO *e, COORDENADAS c){
+       if (obter_estado_casa(e,c.linha ,1) == BRANCA  && obter_estado_casa(e,c.linha+1,1)==PRETA 
+    && obter_estado_casa(e,c.linha-1,c.coluna+1) == PRETA && obter_estado_casa(e,c.linha,c.coluna+1)==PRETA &&
+    obter_estado_casa(e,c.linha-1,1)==PRETA && obter_estado_casa(e,c.linha+1 ,c.coluna+1)==PRETA){
+        return 1;
+    }
+   }
 
-            return 4 ;
+   int verificar_enc_baixo (ESTADO *e, COORDENADAS c){
+    if (obter_estado_casa(e,1,c.coluna-1)==PRETA && obter_estado_casa(e,1,c.coluna+1) == PRETA &&
+    obter_estado_casa(e,1,c.coluna)==BRANCA && obter_estado_casa(e,c.linha+1,c.coluna+1)==PRETA &&
+    obter_estado_casa(e,c.linha+1,c.coluna-1)==PRETA && obter_estado_casa(e,c.linha+1,c.coluna)==PRETA){
+        return 1;
+    }
+   }
+
+   int verificar_enc_cantos (ESTADO *e, COORDENADAS c){
+    (if (obter_estado_casa(e,1,8)==BRANCA) &&(obter_estado_casa(e,1,7)==PRETA && (obter_estado_casa(e,2,7)==PRETA )&& (obter_estado_casa(e,2,8)==PRETA) ||
+     (obter_estado_casa(e,8,1)==BRANCA) &&(obter_estado_casa(e,7,1)==PRETA && (obter_estado_casa(e,7,2)==PRETA )&& (obter_estado_casa(e,8,2)==PRETA) ||
+            
+
+
+int fim (ESTADO *e, COORDENADAS c){
+    if ( c.coluna=0 && c.linha =8 ){
+    return 3;
+    }
+    if (c.coluna =8 && c.linha =0){
+    return 2;
+    }
+    if (verificar_enc_meio (e,c)==1){
+  return 4;
+    }
+    if (verificar_enc_ladod (e,c)==1){
+    return 4;
+    }
+    if (verificar_enc_cima (e,c) ==1){
+        return 4;
+    }
+    if (verificar_enc_ladoe (e,c)==1){
+        return 4;
+    }
+    if (verificar_enc_baixo (e,c)==1) {
+        return 4 ; 
+    }
+    if (verificar_enc_cantos (e,c) ==1 ){
+        return 4;
     }
 
-    return 1 ;
-}
 
 
 
-ERROS jogar (ESTADO *estado, COORDENADA c)
+  ERROS jogar (ESTADO *estado, COORDENADA c)
 {
     printf("jogar %d %d\n", c.coluna, 7-c.linha);
     COORDENADA posicao_atual =obter_pos_jogador(estado);
@@ -100,5 +132,4 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
         printf("Ganhou o jogador %c.Parabéns!\n", vencedor);
     }
 }
-
 
