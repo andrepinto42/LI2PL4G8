@@ -23,16 +23,17 @@ void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c)
 
 
 
+
 COORDENADA obter_pos_jogador(ESTADO *e)
 {
-    int i=0,j=0;
-    COORDENADA joga = {i,j};
-    for (i ; i <8 ; ++i)
+    COORDENADA joga;
+
+    for (int i=0 ; i <8 ; ++i)
     {
-        for ( j; j <8 ; ++j)
+        for ( int j =0; j <8 ; ++j)
         {
-           if ( e->tab[i][j] == PRETA)
-               return joga;
+           if ( e->tab[i][j] == BRANCA)
+               return  joga =(COORDENADA){.linha = i,.coluna = j};
         }
     }
 }
@@ -76,6 +77,8 @@ void print_erro(ERROS erro)
     else if (erro == JOGADA_INVALIDA) printf("Jogada Inválida\n");
     else if (erro == ERRO_LER_TAB) printf ("Erro ao ler o Tabuleiro\n");
     else if (erro == ERRO_ABRIR_FICHEIRO) printf("Erro ao Abrir Ficheiro\n");
+    else if (erro == ACABOU) printf("ACABOU \n");
+    else printf("Coordenada Ocupada\n");
 
 }
 
