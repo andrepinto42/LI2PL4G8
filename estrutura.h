@@ -32,6 +32,7 @@ typedef struct {
     JOGADAS jogadas;
     int num_jogadas;
     int jogador_atual;
+    int num_comando;
 } ESTADO;
 
 
@@ -43,9 +44,15 @@ COORDENADA obter_pos_jogador(ESTADO *e);
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c);
 void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c);
 void set_ultima_jogada(ESTADO *e,COORDENADA c);
-int print_prompt(ESTADO *e,int iteracoes);
+int print_prompt(ESTADO *e);
 void set_numero_de_jogadas(ESTADO *e);
 void set_jogador_atual(ESTADO *e,int jogador);
+void set_casa(ESTADO *e,COORDENADA c,CASA casita);
+int obter_num_comando(ESTADO *e);
+void print_erro(ERROS erro);
+
+
+
 
 
 #endif //RASTROS02_ESTRUTURA_H
