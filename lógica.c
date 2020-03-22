@@ -78,7 +78,7 @@ int jogar (ESTADO *estado, COORDENADA c){
     }
     if (fim (e,c)== 4){
        vencedor = obter_jogador_atual (e);
-       printf ( "Ganhou o jogador %c.Parabéns!" , vencedor);
+       printf ( "Ganhou o jogador %d.Parabéns!" , vencedor);
 }
 
 
