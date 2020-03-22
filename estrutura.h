@@ -7,6 +7,8 @@ typedef enum {
     JOGADA_INVALIDA,
     ERRO_LER_TAB,
     ERRO_ABRIR_FICHEIRO,
+    ACABOU,
+    COORDENADA_OCUPADA,
 } ERROS;
 
 typedef enum {
@@ -50,6 +52,7 @@ void set_jogador_atual(ESTADO *e,int jogador);
 void set_casa(ESTADO *e,COORDENADA c,CASA casita);
 int obter_num_comando(ESTADO *e);
 void print_erro(ERROS erro);
+
 
 
 
