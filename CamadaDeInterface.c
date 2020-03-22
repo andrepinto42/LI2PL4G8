@@ -34,6 +34,11 @@ void mostrar_tabuleiro(ESTADO *e,FILE *f)
 
         for (int i = 0; i < 8; ++i)
         {
+            if ( j == 0 && i == 7)
+                printf("2");
+            else if (j == 7 && i == 0)
+                printf ("1");
+            else
             printf("%c",obter_estado_casa(e,j,i));//mostra cada estado da casa no terminal
         }
         printf("\n");
@@ -95,6 +100,12 @@ int interpretador(ESTADO *e,FILE *file)
         {
             mostrar_tabuleiro(e, stdout);
         }
+        else if (erro == ACABOU)
+        {
+            int vencedor = obter_jogador_atual(e);
+            printf("Ganhou o jogador %d.Parabéns!\n", vencedor);
+            return 0;
+        }
         else
             print_erro(erro);
         return 1;
@@ -117,6 +128,7 @@ int interpretador(ESTADO *e,FILE *file)
         }
 
     }
+
 
 
     return 1;
