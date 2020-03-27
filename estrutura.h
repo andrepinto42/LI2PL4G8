@@ -80,7 +80,7 @@ int obter_num_comando(ESTADO *e);
 //Função que imprime o erro;
 void print_erro(ERROS erro);
 
-//Função que move a peça do jogo;
+//Função que move a peça do jogo e imprime a lista de movimentos;
 void movs(ESTADO *e, COORDENADA);
 
 

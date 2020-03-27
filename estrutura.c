@@ -115,5 +115,11 @@ ESTADO *inicializar_estado()
 void movs(ESTADO *e, COORDENADA){
     set_Preta_Tabuleiro(e, e->tab[c.linha][c.coluna]);
     set_Branca_Tabuleiro(e, COORDENADA);
+    while ((e->num_jogadas)<10){
+        printf("0%d : %d%d %d%d\n",num_jogadas,e->tab[c.linha],e->tab[c.coluna],COORDENADA);
+    }
+    else{
+        printf("%d : %d%d %d%d\n",num_jogadas,e->tab[c.linha],e->tab[c.coluna],COORDENADA);
+    }
 }
 
