@@ -111,3 +111,9 @@ ESTADO *inicializar_estado()
 
     return e;
 }
+
+void movs(ESTADO *e, COORDENADA){
+    set_Preta_Tabuleiro(e, e->tab[c.linha][c.coluna]);
+    set_Branca_Tabuleiro(e, COORDENADA);
+}
+
