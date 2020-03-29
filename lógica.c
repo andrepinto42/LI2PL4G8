@@ -7,8 +7,8 @@
 
 int check_lado_oeste(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na esquerda;
 {
-    int jL = c.linha;
-    int jC = c.coluna;
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
     int offset= -1;
 
     if (jC == 0) return 1; // Não pode ir para a esquerda;
@@ -43,8 +43,8 @@ int check_lado_oeste(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na esqu
 
 int check_lado_este(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na direita;
 {
-    int jL = c.linha;
-    int jC = c.coluna;
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
     int offset= -1;
 
     if (jC == 7) return 1; // Não pode ir para a direita;
@@ -79,8 +79,8 @@ int check_lado_este(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na direi
 
 int check_lado_sul(ESTADO *e,COORDENADA c)// testa se tem pecas pretas embaixo;
 {
-    int jL = c.linha;
-    int jC = c.coluna;
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
     int offset= -1;
 
     if (jL == 7) return 1; // Não pode ir para baixo;
@@ -115,8 +115,8 @@ int check_lado_sul(ESTADO *e,COORDENADA c)// testa se tem pecas pretas embaixo;
 
 int check_lado_norte(ESTADO *e,COORDENADA c)// testa se tem pecas pretas em cima;
 {
-    int jL = c.linha;
-    int jC = c.coluna;
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
     int offset= -1;
 
     if (jL == 0) return 1; // Não pode ir para cima;
