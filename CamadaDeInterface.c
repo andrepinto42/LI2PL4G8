@@ -1,14 +1,42 @@
 #include "estrutura.h"
-#include <stdio.h>
 #include "lógica.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define BUF_SIZE 1024
 
 
+void reconstruir_jogadas(ESTADO *e,int num_jog)
+{
+    for (int i = 0; i <= num_jog  ; ++i)
+    {
+        int status = check_jogada_conteudo( e->jogadas[i]);
+        if (status == 2 || status == 1)
+        {
+            COORDENADA cords1 = e->jogadas[i].jogador1;
+            jogar(e,cords1);
+            if (status == 2)
+            {
+                COORDENADA cords2 = e->jogadas[i].jogador2;
+                jogar(e,cords2);
+            }
+        }
+    }
+    for (int k = num_jog +1; k < 32 ; ++k)
+    {
+        e->jogadas[k].jogador1.coluna = -1;
+        e->jogadas[k].jogador1.linha  = -1;
+        e->jogadas[k].jogador2.coluna = -1;
+        e->jogadas[k].jogador2.linha  = -1;
+
+    }
+}
+
 ERROS ler_tabuleiro(ESTADO *e,FILE * file)
 {
+    int max=0,player = 1;
     for (int l = 0; l < 8; ++l)
     {
         char linha[BUF_SIZE];
@@ -20,6 +48,50 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
             set_casa(e,C,(CASA) linha[c]); // coloca no estado a informacao contida em dados.txt
         }
     }
+    char fake[BUF_SIZE];
+    fgets(fake,BUF_SIZE,file);
+
+
+    while (!feof(file))
+    {
+        char linha[BUF_SIZE];
+        int num_jog;
+        if(fgets(linha,BUF_SIZE,file) == NULL)
+            return ERRO_LER_TAB;
+
+
+        if (linha[0] >= 48 && linha[0] <= 58) {
+
+            num_jog = (linha[0] - 48) * 10 + (linha[1] - 48);
+            if (num_jog > max) max = num_jog;
+
+            int col1 = linha[5] - 97;
+            int lin1 = 8 - (linha[6] - 48);
+
+            COORDENADA c = {col1,lin1};
+            set_jogadas(e,c,1,num_jog-1);
+            player = 2;
+
+        }
+
+
+
+        if (linha[7] == ' ' )
+        {
+            int col2 = linha[8] - 97;
+            int lin2 = 8 - (linha[9] - 48);
+            COORDENADA c1 = {col2,lin2};
+            set_jogadas(e,c1,2,num_jog);
+            player = 1;
+        }
+        set_num_jogadas(e,max-1);
+        set_jogador_atual(e,player);
+        printf("%d max\n",max);
+
+
+    }
+
+
     fclose(file);
     return OK;
 }
@@ -67,6 +139,9 @@ void gravar_tabuleiro(ESTADO *e,char *filename)
         fprintf(f,"\n");
     }
 
+    fprintf(f,"\n");
+        print_movs(e,f);
+
     fclose(f);
 }
 
@@ -79,13 +154,12 @@ ERROS ler(ESTADO *e,char *file)
     return ler_tabuleiro(e,f);
 }
 
-
-
 //Interpretador fornecido pelo guião
 int interpretador(ESTADO *e,FILE *file)
 {
     char linha[BUF_SIZE],nomefile[BUF_SIZE];
     char col[2], lin[2];
+    int num_jog;
 
     e->num_comando++;
     print_prompt(e);
@@ -126,6 +200,19 @@ int interpretador(ESTADO *e,FILE *file)
             mostrar_tabuleiro(e,f);
 
         }
+
+    }
+    if (strcmp(linha,"Q\n") == 0)
+    {
+        return 0;
+    }
+    if (sscanf(linha,"pos %d",&num_jog) == 1)
+    {
+        num_jog--;
+        zerar_tabuleiro(e);
+        reconstruir_jogadas(e,num_jog);
+        mostrar_tabuleiro(e,stdout);
+        return 1;
 
     }
 
