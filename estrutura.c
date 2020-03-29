@@ -1,9 +1,89 @@
-
+#include <math.h>
 #include <stdio.h>
 #include "estrutura.h"
 #include <stdlib.h>
 #include <string.h>
 #define BUF_SIZE 1024
+
+
+void zerar_tabuleiro(ESTADO *e)
+{
+    e->jogador_atual = 1; // O Jogador da primeira jogada
+    e->num_jogadas = 0; // quantas jogadas foram efetuadas
+    e->num_comando = 0;
+    for (int i = 0; i <8 ; ++i)
+    {       // preenche o tabuleiro com VAZIO
+        for (int j = 0; j <8 ; ++j)
+        {
+            e->tab[i][j] = VAZIO;
+        }
+    }
+    e->tab[3][4] = BRANCA;
+}
+
+
+void set_num_jogadas(ESTADO *e,int num_jogs)
+{
+    e->num_jogadas = num_jogs;
+}
+
+
+void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
+{
+    if (jogador == 1)
+        e->jogadas[num_jog].jogador1 = c;
+    else
+        e->jogadas[num_jog].jogador1 = c;
+}
+//guarda no estado essa coordenada 
+void add_jogadas(ESTADO *e,COORDENADA c)
+{
+    if (e->jogador_atual == 1)
+        e->jogadas[e->num_jogadas].jogador1 = c;
+    else
+        e->jogadas[e->num_jogadas].jogador2 = c;
+}
+
+//verificar se o jogador ja jogou ,ou ainda vai jogar
+int check_jogada_conteudo(JOGADA j)
+{
+    int j1linha = j.jogador1.linha ;
+    int j1coluna = j.jogador1.coluna ;
+
+    int j2linha = j.jogador2.linha ;
+    int j2coluna = j.jogador2.coluna ;
+
+    if (j1linha > 0 && j1coluna > 0)
+    {
+        if (j2linha >0 && j2coluna > 0)
+            return 2; //A Jogada tem coordenadas para ambos os jogadores;
+        else return 1; // A jogada só tem coordenadas para o 1º Jogador
+    }
+    else return 0; // A jogada é vazia;
+}
+
+
+void print_movs(ESTADO *e,FILE *file)
+{
+    int i=0,check;
+
+    while (check = check_jogada_conteudo( e->jogadas[i]) )
+    {
+        if (( check == 2) || (check == 1) )
+        {
+            if (e->num_jogadas <10)
+                fprintf(file,"0");
+
+            fprintf(file,"%d : %c%d", i+1,97 + e->jogadas[i].jogador1.coluna, 8-e->jogadas[i].jogador1.linha);
+            if (check == 2)
+                fprintf(file," %c%d\n",                  97 + e->jogadas[i].jogador2.coluna, 8-e->jogadas[i].jogador2.linha);
+        }
+        if (check == 1) fprintf(file,"\n");
+        i++;
+    }
+    fprintf(file,"\n");
+}
+
 
 void set_ultima_jogada(ESTADO *e,COORDENADA c)
 {
@@ -50,7 +130,7 @@ void set_jogador_atual(ESTADO *e,int jogador)
     e->jogador_atual = jogador;
 }
 
-void set_numero_de_jogadas(ESTADO *e)
+void incr_numero_de_jogadas(ESTADO *e)
 {
     e->num_jogadas = e->num_jogadas + 1;
 }
@@ -81,7 +161,7 @@ void print_erro(ERROS erro)
     else printf("Coordenada Ocupada\n");
 
 }
-
+//imprime as informaçoes jogo
 int print_prompt(ESTADO *e)
 {
     printf("# %d PL%d (%d)> ",
@@ -108,18 +188,19 @@ ESTADO *inicializar_estado()
         }
     }
     e->tab[3][4] = BRANCA;
+    e->tab[7][0] = UM;
+    e->tab[0][7] = DOIS;
+    for (int k = 0; k< 32 ; ++k)
+    {
+        e->jogadas[k].jogador1.coluna = -1;
+        e->jogadas[k].jogador1.linha  = -1;
+        e->jogadas[k].jogador2.coluna = -1;
+        e->jogadas[k].jogador2.linha  = -1;
+    }
 
     return e;
 }
 
-void movs(ESTADO *e, COORDENADA){
-    set_Preta_Tabuleiro(e, e->tab[c.linha][c.coluna]);
-    set_Branca_Tabuleiro(e, COORDENADA);
-    while ((e->num_jogadas)<10){
-        printf("0%d : %d%d %d%d\n",num_jogadas,e->tab[c.linha],e->tab[c.coluna],COORDENADA);
-    }
-    else{
-        printf("%d : %d%d %d%d\n",num_jogadas,e->tab[c.linha],e->tab[c.coluna],COORDENADA);
-    }
-}
+
+
 
