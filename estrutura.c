@@ -19,6 +19,8 @@ void zerar_tabuleiro(ESTADO *e)
         }
     }
     e->tab[3][4] = BRANCA;
+    e->tab[7][0] = UM;
+    e->tab[0][7] = DOIS;
 }
 
 
