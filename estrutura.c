@@ -7,13 +7,12 @@
 
 
 void zerar_tabuleiro(ESTADO *e)
-{   /** O Jogador da primeira jogada */
-    e->jogador_atual = 1; 
-    /** quantas jogadas foram efetuadas */
-    e->num_jogadas = 0; 
+{
+    e->jogador_atual = 1; // O Jogador da primeira jogada
+    e->num_jogadas = 0; // quantas jogadas foram efetuadas
     e->num_comando = 0;
     for (int i = 0; i <8 ; ++i)
-    {       /** preenche o tabuleiro com VAZIO */
+    {       // preenche o tabuleiro com VAZIO
         for (int j = 0; j <8 ; ++j)
         {
             e->tab[i][j] = VAZIO;
@@ -36,7 +35,7 @@ void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
     else
         e->jogadas[num_jog].jogador1 = c;
 }
-//guarda no estado essa coordenada 
+
 void add_jogadas(ESTADO *e,COORDENADA c)
 {
     if (e->jogador_atual == 1)
@@ -45,7 +44,7 @@ void add_jogadas(ESTADO *e,COORDENADA c)
         e->jogadas[e->num_jogadas].jogador2 = c;
 }
 
-/** verificar se o jogador ja jogou ,ou ainda vai jogar*/
+
 int check_jogada_conteudo(JOGADA j)
 {
     int j1linha = j.jogador1.linha ;
@@ -57,13 +56,10 @@ int check_jogada_conteudo(JOGADA j)
     if (j1linha > 0 && j1coluna > 0)
     {
         if (j2linha >0 && j2coluna > 0)
-            /**A Jogada tem coordenadas para ambos os jogadores;*/
-            return 2; 
-            /** A jogada só tem coordenadas para o 1º Jogador */
-        else return 1; 
+            return 2; //A Jogada tem coordenadas para ambos os jogadores;
+        else return 1; // A jogada só tem coordenadas para o 1º Jogador
     }
-    /** A jogada é vazia;*/
-    else return 0; 
+    else return 0; // A jogada é vazia;
 }
 
 
@@ -165,7 +161,7 @@ void print_erro(ERROS erro)
     else printf("Coordenada Ocupada\n");
 
 }
-/** imprime as informaçoes jogo */
+
 int print_prompt(ESTADO *e)
 {
     printf("# %d PL%d (%d)> ",
@@ -181,13 +177,11 @@ void set_casa(ESTADO *e,COORDENADA c,CASA casita)
 ESTADO *inicializar_estado()
 {
     ESTADO *e = (ESTADO *) malloc(sizeof(ESTADO));
-    /** O Jogador da primeira jogada */
-    e->jogador_atual = 1; 
-    /**quantas jogadas foram efetuadas */
-    e->num_jogadas = 0; 
+    e->jogador_atual = 1; // O Jogador da primeira jogada
+    e->num_jogadas = 0; // quantas jogadas foram efetuadas
     e->num_comando = 0;
     for (int i = 0; i <8 ; ++i)
-    {       /**preenche o tabuleiro com VAZIO */
+    {       // preenche o tabuleiro com VAZIO
         for (int j = 0; j <8 ; ++j)
         {
             e->tab[i][j] = VAZIO;
