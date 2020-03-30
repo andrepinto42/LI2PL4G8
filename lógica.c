@@ -159,7 +159,8 @@ ERROS valido(ESTADO *e , COORDENADA c)
 
         if (dist < 1.42 )
         {
-            if ( obter_estado_casa(e,c.linha,c.coluna) == VAZIO )
+            if ( obter_estado_casa(e,c.linha,c.coluna) == VAZIO || obter_estado_casa(e,c.linha,c.coluna) == UM ||
+                 obter_estado_casa(e,c.linha,c.coluna) == DOIS )
             return OK ;
             else
                 return COORDENADA_OCUPADA;
