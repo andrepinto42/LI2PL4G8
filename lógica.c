@@ -233,7 +233,7 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
         int jog = obter_jogador_atual(estado);
         if (jog == 1)
         {
-            set_numero_de_jogadas(estado);
+            incr_numero_de_jogadas(estado);
             set_jogador_atual(estado, 2);
         } else
             {
