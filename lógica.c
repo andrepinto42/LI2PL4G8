@@ -1,4 +1,5 @@
 #include "estrutura.h"
+#include "CamadaDeInterface.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -88,16 +89,16 @@ int check_lado_sul(ESTADO *e,COORDENADA c)// testa se tem pecas pretas embaixo;
     if (jL == 7) return 1; // Não pode ir para baixo;
     else if (jC == 0)
     {
-        if (obter_estado_casa(e,jL-1,jC) == PRETA ||
-            obter_estado_casa(e,jL-1,jC +1) == PRETA)
+        if (obter_estado_casa(e,jL+1,jC) == PRETA ||
+            obter_estado_casa(e,jL+1,jC +1) == PRETA)
         {
             return 1;
         }
     }
     else if (jC == 7)
     {
-        if (obter_estado_casa(e,jL-1,jC) == PRETA ||
-            obter_estado_casa(e,jL-1,jC - 1) == PRETA)
+        if (obter_estado_casa(e,jL+1,jC) == PRETA ||
+            obter_estado_casa(e,jL+1,jC - 1) == PRETA)
         {
             return 1;
         }
@@ -106,7 +107,7 @@ int check_lado_sul(ESTADO *e,COORDENADA c)// testa se tem pecas pretas embaixo;
     {
         for (offset ; offset <=1 ; ++offset)
         {
-            if (!(obter_estado_casa(e,jL-1,jC+offset) == PRETA))
+            if (!(obter_estado_casa(e,jL+1,jC+offset) == PRETA))
                 break;
         }
     }
@@ -125,16 +126,16 @@ int check_lado_norte(ESTADO *e,COORDENADA c)// testa se tem pecas pretas em cima
     if (jL == 0) return 1; // Não pode ir para cima;
     else if (jC == 0)
     {
-        if (obter_estado_casa(e,jL+1,jC) == PRETA ||
-            obter_estado_casa(e,jL+1,jC +1) == PRETA)
+        if (obter_estado_casa(e,jL-1,jC) == PRETA ||
+            obter_estado_casa(e,jL-1,jC +1) == PRETA)
         {
             return 1;
         }
     }
     else if (jC == 7)
     {
-        if (obter_estado_casa(e,jL+1,jC) == PRETA ||
-            obter_estado_casa(e,jL+1,jC - 1) == PRETA)
+        if (obter_estado_casa(e,jL-1,jC) == PRETA ||
+            obter_estado_casa(e,jL-1,jC - 1) == PRETA)
         {
             return 1;
         }
@@ -143,7 +144,7 @@ int check_lado_norte(ESTADO *e,COORDENADA c)// testa se tem pecas pretas em cima
         {
             for (offset ; offset <=1 ; ++offset)
             {
-             if (!(obter_estado_casa(e,jL+1,jC+offset) == PRETA))
+             if (!(obter_estado_casa(e,jL-1,jC+offset) == PRETA))
                 break;
             }
     }
@@ -151,7 +152,10 @@ int check_lado_norte(ESTADO *e,COORDENADA c)// testa se tem pecas pretas em cima
     else return 0;
 }
 
+int casa_livre(ESTADO *e,COORDENADA c)
+{
 
+}
 
 ERROS valido(ESTADO *e , COORDENADA c)
 {
@@ -171,57 +175,21 @@ ERROS valido(ESTADO *e , COORDENADA c)
         else return COORDENADA_INVALIDA;
 
 }
-/*
-int fim (ESTADO *e, COORDENADA c)
-{
-    {
-        if ( c.coluna==0 && c.linha ==8 )
-            return 3;
-        if (c.coluna ==8 && c.linha ==0)
-            return 2;
-        if ( e-> tab[c.linha][c.coluna+1] ==PRETA && e-> tab[c.linha-1][c.coluna+1]==PRETA
-             && e-> tab[c.linha-1][c.coluna-1] == PRETA && e-> tab[c.linha-1][c.coluna]==PRETA &&
-        e-> tab[c.linha-1][c.coluna-1] == PRETA &&e-> tab[c.linha][c.coluna-1]==PRETA &&
-        e-> tab[c.linha+1][c.coluna]==PRETA && e-> tab[c.linha+1][c.coluna+1]==PRETA &&
-        e-> tab[c.linha][c.coluna]==BRANCA )
-        {
-            return 4;
-        }
-        if (( e-> tab[c.linha][8]==BRANCA && e-> tab[c.linha-1][8]==PRETA
-              && e-> tab[c.linha-1][c.coluna-1] == PRETA && e-> tab[c.linha][c.coluna-1]==PRETA &&
-              e-> tab[c.linha+1][8]==PRETA && e-> tab[c.linha+1][c.coluna-1]==PRETA) ||
-            (e-> tab[0][c.coluna-1]==PRETA && e-> tab[0][c.coluna+1] == PRETA &&
-             e-> tab[0][c.coluna]==BRANCA && e-> tab[c.linha+1][c.coluna]==PRETA &&
-             e-> tab[c.linha+1][c.coluna-1]==PRETA && e-> tab[c.linha+1][c.coluna+1]==PRETA) ||
 
-            ( e-> tab[c.linha][0] == BRANCA  && e-> tab[c.linha+1][0]==PRETA
-              && e-> tab[c.linha-1][c.coluna+1] == PRETA && e-> tab[c.linha][c.coluna+1]==PRETA &&
-              e-> tab[c.linha-1][0]==PRETA && e-> tab[c.linha+1][c.coluna+1]==PRETA)||
-
-            ( e-> tab[8][c.coluna-1]==PRETA && e-> tab[8][c.coluna+1] == PRETA &&
-              e-> tab[8][c.coluna]==BRANCA && e-> tab[c.linha-1][c.coluna+1]==PRETA &&
-              e-> tab[c.linha-1][c.coluna-1]==PRETA &&  e->tab[c.linha-1][c.coluna]==PRETA) ||
-
-            (e->tab[0][0]==BRANCA && e->tab[0][1]==PRETA && e->tab[1][0]==PRETA && e->tab[1][1]==PRETA) ||
-            (e->tab[8][8]==BRANCA && e->tab[7][8]==PRETA && e->tab[7][7]==PRETA && e->tab[8][7]==PRETA ))
-
-            return 4 ;
-    }
-
-    return 1 ;
-}
-
-*/
 
 ERROS jogar (ESTADO *estado, COORDENADA c)
 {
 
-    printf("jogar %d %d\n", c.coluna, 7 - c.linha);
+    printf("jogar %d %d\n", c.coluna, c.linha);
     COORDENADA posicao_atual = obter_pos_jogador(estado);
     ERROS erro = valido(estado, c);
     if (erro == OK)
     {
-        if (c.coluna == 7 && c.linha == 0)
+        if ( obter_numero_de_jogadas(estado) == 0)
+        {
+            incr_numero_de_jogadas(estado);
+        }
+            if (c.coluna == 7 && c.linha == 0)
         {
             set_jogador_atual(estado,2);
             return ACABOU;
@@ -235,21 +203,26 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
 
         set_Branca_Tabuleiro(estado, c);
         set_Preta_Tabuleiro(estado, posicao_atual);
+        add_jogadas(estado,c);
         int jog = obter_jogador_atual(estado);
+
         if (jog == 1)
         {
-            set_numero_de_jogadas(estado);
             set_jogador_atual(estado, 2);
-        } else
-            {
-            set_jogador_atual(estado, 1);
         }
+        else
+            {
+                incr_numero_de_jogadas(estado);
+                set_jogador_atual(estado, 1);
+            }
 
     }
     else if (erro == COORDENADA_INVALIDA)
     {
         return erro;
     }
+    printf("n%d e%d o%d s%d \n",check_lado_norte(estado, c),check_lado_este(estado, c)
+                             ,check_lado_oeste(estado, c),check_lado_sul(estado, c));
     if (check_lado_este(estado, c) && check_lado_norte(estado, c) &&
                check_lado_oeste(estado, c) && check_lado_sul(estado, c))
         // o jogador nao pode sair;
@@ -266,24 +239,4 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
 }
 
 
-/*
-    if (fim(estado, c) == 1)
-    {
-
-        return COORDENADA_INVALIDA;
-    }
-    if (fim(estado, c) == 3)
-        printf("Ganhou o jogador 1.Parabéns!\n");
-
-    if (fim(estado, c) == 2)
-    {
-        printf("Ganhou o jogador 2.Parabéns!\n");
-    }
-    if (fim(estado, c) == 4)
-    {
-        int vencedor = obter_jogador_atual(estado);
-        printf("Ganhou o jogador %c.Parabéns!\n", vencedor);
-    }
-}
-*/
 

@@ -4,9 +4,20 @@
 #include "CamadaDeInterface.h"
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 int main()
 {
-ESTADO *e = inicializar_estado();
- interpretador(e);
+
+   FILE *file = fopen("dados.txt","r");
+   ESTADO *e = inicializar_estado();
+
+
+   mostrar_tabuleiro(e,file);
+    while (interpretador(e,file))
+    {
+    }
+
+    free(e);
+    return 0;
 }
