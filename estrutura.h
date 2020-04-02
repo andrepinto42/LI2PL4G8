@@ -62,8 +62,11 @@ void set_num_jogadas(ESTADO *e,int num_jogs);
 void zerar_tabuleiro(ESTADO *e);
 int check_jogada_conteudo(JOGADA j);
 void reconstruir_jogadas(ESTADO *e,int num_jogs);
+<<<<<<< HEAD
 void print_movs_tab(ESTADO *e);
 COORDENADA str_to_coord(char jog[]);
+=======
+>>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
 
 
 
