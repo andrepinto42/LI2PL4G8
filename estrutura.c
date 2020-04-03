@@ -5,7 +5,7 @@
 #include <string.h>
 #define BUF_SIZE 1024
 
-<<<<<<< HEAD
+
 COORDENADA str_to_coord(char jog[])
 {
     COORDENADA c1;
@@ -15,8 +15,6 @@ COORDENADA str_to_coord(char jog[])
     else return c1 = (COORDENADA){.coluna = -1,.linha = -1};
 }
 
-=======
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
 
 void zerar_tabuleiro(ESTADO *e)
 {
@@ -45,7 +43,7 @@ void set_num_jogadas(ESTADO *e,int num_jogs)
 void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
 {
     if (jogador == 1)
-<<<<<<< HEAD
+
 
         e->jogadas[num_jog].jogador1 = c;
 
@@ -53,25 +51,15 @@ void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
 
         e->jogadas[num_jog].jogador2 = c;
 
-=======
-        e->jogadas[num_jog].jogador1 = c;
-    else
-        e->jogadas[num_jog].jogador1 = c;
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
 }
 
 void add_jogadas(ESTADO *e,COORDENADA c)
 {
     if (e->jogador_atual == 1)
-<<<<<<< HEAD
         e->jogadas[e->num_jogadas -1].jogador1 = c;
     else
         e->jogadas[e->num_jogadas -1].jogador2 = c;
-=======
-        e->jogadas[e->num_jogadas].jogador1 = c;
-    else
-        e->jogadas[e->num_jogadas].jogador2 = c;
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
+
 }
 
 
@@ -83,15 +71,10 @@ int check_jogada_conteudo(JOGADA j)
     int j2linha = j.jogador2.linha ;
     int j2coluna = j.jogador2.coluna ;
 
-<<<<<<< HEAD
     if (j1linha >= 0 && j1coluna >= 0)
     {
         if (j2linha >=0 && j2coluna >= 0)
-=======
-    if (j1linha > 0 && j1coluna > 0)
-    {
-        if (j2linha >0 && j2coluna > 0)
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
+
             return 2; //A Jogada tem coordenadas para ambos os jogadores;
         else return 1; // A jogada só tem coordenadas para o 1º Jogador
     }
@@ -99,7 +82,6 @@ int check_jogada_conteudo(JOGADA j)
 }
 
 
-<<<<<<< HEAD
 void print_movs_tab(ESTADO *e)
 {
     int i=0,check;
@@ -122,8 +104,6 @@ void print_movs_tab(ESTADO *e)
 }
 
 
-=======
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
 void print_movs(ESTADO *e,FILE *file)
 {
     int i=0,check;
@@ -135,11 +115,7 @@ void print_movs(ESTADO *e,FILE *file)
             if (e->num_jogadas <10)
                 fprintf(file,"0");
 
-<<<<<<< HEAD
             fprintf(file,"%d: %c%d", i+1,97 + e->jogadas[i].jogador1.coluna, 8-e->jogadas[i].jogador1.linha);
-=======
-            fprintf(file,"%d : %c%d", i+1,97 + e->jogadas[i].jogador1.coluna, 8-e->jogadas[i].jogador1.linha);
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
             if (check == 2)
                 fprintf(file," %c%d\n",                  97 + e->jogadas[i].jogador2.coluna, 8-e->jogadas[i].jogador2.linha);
         }
@@ -214,7 +190,7 @@ int obter_num_comando(ESTADO *e)
 {
     return e->num_comando;
 }
-<<<<<<< HEAD
+
 
 void print_erro(ERROS erro)
 {
@@ -235,28 +211,10 @@ int print_prompt(ESTADO *e)
     return 1;
 }
 
-=======
 
-void print_erro(ERROS erro)
-{
-    if      (erro == OK) printf("OK\n");
-    else if (erro == COORDENADA_INVALIDA) printf("Coordenada Inválida\n");
-    else if (erro == JOGADA_INVALIDA) printf("Jogada Inválida\n");
-    else if (erro == ERRO_LER_TAB) printf ("Erro ao ler o Tabuleiro\n");
-    else if (erro == ERRO_ABRIR_FICHEIRO) printf("Erro ao Abrir Ficheiro\n");
-    else if (erro == ACABOU) printf("ACABOU \n");
-    else printf("Coordenada Ocupada\n");
 
-}
 
-int print_prompt(ESTADO *e)
-{
-    printf("# %d PL%d (%d)> ",
-           obter_num_comando(e),obter_jogador_atual(e),obter_numero_de_jogadas(e)) ;
-    return 1;
-}
 
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
 void set_casa(ESTADO *e,COORDENADA c,CASA casita)
 {
     e->tab[c.linha][c.coluna] = casita;

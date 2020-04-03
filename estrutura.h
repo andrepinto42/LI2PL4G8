@@ -51,22 +51,21 @@ COORDENADA obter_pos_jogador(ESTADO *e);
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c);
 void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c);
 void set_ultima_jogada(ESTADO *e,COORDENADA c);
-int print_prompt(ESTADO *e);
+int  print_prompt(ESTADO *e);
 void incr_numero_de_jogadas(ESTADO *e);
 void set_jogador_atual(ESTADO *e,int jogador);
 void set_casa(ESTADO *e,COORDENADA c,CASA casita);
-int obter_num_comando(ESTADO *e);
+int  obter_num_comando(ESTADO *e);
 void print_erro(ERROS erro);
 void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog);
 void set_num_jogadas(ESTADO *e,int num_jogs);
 void zerar_tabuleiro(ESTADO *e);
-int check_jogada_conteudo(JOGADA j);
+int  check_jogada_conteudo(JOGADA j);
 void reconstruir_jogadas(ESTADO *e,int num_jogs);
-<<<<<<< HEAD
+
 void print_movs_tab(ESTADO *e);
 COORDENADA str_to_coord(char jog[]);
-=======
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
+
 
 
 

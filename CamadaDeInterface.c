@@ -52,7 +52,7 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
     fgets(fake,BUF_SIZE,file);
 
 
-<<<<<<< HEAD
+
 
     char linha[BUF_SIZE];
     while(fgets(linha, BUF_SIZE, file) != NULL)
@@ -122,46 +122,6 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
 
         }
          */
-=======
-    while (!feof(file))
-    {
-        char linha[BUF_SIZE];
-        int num_jog;
-        if(fgets(linha,BUF_SIZE,file) == NULL)
-            return ERRO_LER_TAB;
-
-
-        if (linha[0] >= 48 && linha[0] <= 58) {
-
-            num_jog = (linha[0] - 48) * 10 + (linha[1] - 48);
-            if (num_jog > max) max = num_jog;
-
-            int col1 = linha[5] - 97;
-            int lin1 = 8 - (linha[6] - 48);
-
-            COORDENADA c = {col1,lin1};
-            set_jogadas(e,c,1,num_jog-1);
-            player = 2;
-
-        }
-
-
-
-        if (linha[7] == ' ' )
-        {
-            int col2 = linha[8] - 97;
-            int lin2 = 8 - (linha[9] - 48);
-            COORDENADA c1 = {col2,lin2};
-            set_jogadas(e,c1,2,num_jog);
-            player = 1;
-        }
-        set_num_jogadas(e,max-1);
-        set_jogador_atual(e,player);
-        printf("%d max\n",max);
-
-
-    }
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
 
 
     fclose(file);
@@ -263,13 +223,9 @@ int interpretador(ESTADO *e,FILE *file)
     }
     if (sscanf(linha,"ler %s",nomefile) == 1)
     {
-<<<<<<< HEAD
         ERROS erro=ler(e,nomefile);
+
         if (erro == ERRO_ABRIR_FICHEIRO)
-=======
-        ERROS erro;
-        if ((erro =ler(e,nomefile)) == ERRO_ABRIR_FICHEIRO)
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
             print_erro(erro);
         else
         {
@@ -278,19 +234,16 @@ int interpretador(ESTADO *e,FILE *file)
 
         }
 
-<<<<<<< HEAD
     }
+    if (strcmp(linha,"Q\n") == 0)
+
+        return 0;
+
+
     if (strcmp(linha,"Q\n") == 0)
     {
         return 0;
     }
-=======
-    }
-    if (strcmp(linha,"Q\n") == 0)
-    {
-        return 0;
-    }
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
     if (sscanf(linha,"pos %d",&num_jog) == 1)
     {
         num_jog--;
@@ -300,7 +253,6 @@ int interpretador(ESTADO *e,FILE *file)
         return 1;
 
     }
-<<<<<<< HEAD
     if (strcmp(linha,"movs\n") == 0)
     {
         printf("\n");
@@ -308,8 +260,6 @@ int interpretador(ESTADO *e,FILE *file)
 
         return 1;
     }
-=======
->>>>>>> ee4ee77029bc91d3c6d512b5e14a69bde4feb654
 
 
 
