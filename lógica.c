@@ -228,8 +228,7 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
         return erro;
     }
 
-    printf("n%d e%d o%d s%d \n",check_lado_norte(estado, c),check_lado_este(estado, c)
-                             ,check_lado_oeste(estado, c),check_lado_sul(estado, c));
+ 
 
     if (check_lado_este(estado, c) && check_lado_norte(estado, c) &&
                check_lado_oeste(estado, c) && check_lado_sul(estado, c))
