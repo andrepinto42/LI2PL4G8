@@ -24,14 +24,7 @@ void reconstruir_jogadas(ESTADO *e,int num_jog)
             }
         }
     }
-    for (int k = num_jog +1; k < 32 ; ++k)
-    {
-        e->jogadas[k].jogador1.coluna = -1;
-        e->jogadas[k].jogador1.linha  = -1;
-        e->jogadas[k].jogador2.coluna = -1;
-        e->jogadas[k].jogador2.linha  = -1;
 
-    }
 }
 
 ERROS ler_tabuleiro(ESTADO *e,FILE * file)
@@ -48,6 +41,11 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
             set_casa(e,C,(CASA) linha[c]); // coloca no estado a informacao contida em dados.txt
         }
     }
+
+
+
+
+
     char fake[BUF_SIZE];
     fgets(fake,BUF_SIZE,file);
 
@@ -81,48 +79,6 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
     set_num_jogadas(e,max);
     set_jogador_atual(e,player);
     print_movs_tab(e);
-
-
-        /*while (!feof(file))
-        {
-            char linha[BUF_SIZE];
-            int num_jog;
-            if(fgets(linha,BUF_SIZE,file) == NULL)
-                return ERRO_LER_TAB;
-
-
-            if (linha[0] >= 48 && linha[0] <= 58) {
-
-                num_jog = (linha[0] - 48) * 10 + (linha[1] - 48);
-                if (num_jog > max) max = num_jog;
-
-                int col1 = linha[5] - 97;
-                int lin1 = 8 - (linha[6] - 48);
-
-                COORDENADA c = {col1,lin1};
-                set_jogadas(e,c,1,num_jog-1);
-                player = 1;
-
-            }
-
-
-
-            if (linha[7] == ' ' )
-            {
-                int col2 = linha[8] - 97;
-                int lin2 = 8 - (linha[9] - 48);
-                COORDENADA c1 = {col2,lin2};
-                set_jogadas(e,c1,2,num_jog);
-                player = 2;
-            }
-            set_num_jogadas(e,max-1);
-            set_jogador_atual(e,player);
-            printf("%d max\n",max);
-
-
-        }
-         */
-
 
     fclose(file);
     return OK;

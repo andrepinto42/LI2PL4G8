@@ -168,7 +168,8 @@ ERROS valido(ESTADO *e , COORDENADA c)
 
         if (dist < 1.42 )
         {
-            if ( obter_estado_casa(e,c.linha,c.coluna) == VAZIO )
+            CASA casita = obter_estado_casa(e,c.linha,c.coluna);
+            if (  casita == VAZIO || casita == UM || casita == DOIS )
             return OK ;
             else
                 return COORDENADA_OCUPADA;
@@ -228,8 +229,6 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
         return erro;
     }
 
-    printf("n%d e%d o%d s%d \n",check_lado_norte(estado, c),check_lado_este(estado, c)
-                             ,check_lado_oeste(estado, c),check_lado_sul(estado, c));
 
     if (check_lado_este(estado, c) && check_lado_norte(estado, c) &&
                check_lado_oeste(estado, c) && check_lado_sul(estado, c))

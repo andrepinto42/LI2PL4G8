@@ -6,6 +6,9 @@
 #define BUF_SIZE 1024
 
 
+
+
+
 COORDENADA str_to_coord(char jog[])
 {
     COORDENADA c1;
