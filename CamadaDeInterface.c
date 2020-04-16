@@ -24,14 +24,7 @@ void reconstruir_jogadas(ESTADO *e,int num_jog)
             }
         }
     }
-    for (int k = num_jog +1; k < 32 ; ++k)
-    {
-        e->jogadas[k].jogador1.coluna = -1;
-        e->jogadas[k].jogador1.linha  = -1;
-        e->jogadas[k].jogador2.coluna = -1;
-        e->jogadas[k].jogador2.linha  = -1;
 
-    }
 }
 
 ERROS ler_tabuleiro(ESTADO *e,FILE * file)
