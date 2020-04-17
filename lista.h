@@ -4,6 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
+typedef  struct  listas* LISTA;
+typedef struct listas
+{
+    void *valor;
+    LISTA prox;
+} Nodo;
+
 // Cria uma lista vazia
 LISTA criar_lista();
 // Insere um valor na cabeça da lista
@@ -17,4 +25,4 @@ LISTA remove_cabeca(LISTA L);
 // Devolve verdareiro se a lista é vazia
 int lista_esta_vazia(LISTA L);
 
-#endif RASTROS02_LISTA_H
+#endif //RASTROS02_LISTA_H
