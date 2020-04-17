@@ -23,6 +23,10 @@ void reconstruir_jogadas(ESTADO *e,int num_jog)
                 jogar(e,cords2);
             }
         }
+
+
+
+
     }
 
 }
