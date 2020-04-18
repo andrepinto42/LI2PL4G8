@@ -4,9 +4,122 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "lista.h"
+
+ERROS valido(ESTADO *e , COORDENADA c);
+
+LISTA insere_lista_coords(LISTA l,COORDENADA c)
+{
+        char* s = coord_to_str(c);
+        l = insere_cabeca(l,s);
+        return l;
+}
 
 
-int check_lado_oeste(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na esquerda;
+LISTA add_coords_norte(LISTA l,ESTADO *e)
+{
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
+
+    for (int i =-1; i <2 ; ++i)
+        {
+            COORDENADA c = {jC+i,jL -1};
+            ERROS erro = valido(e,c);
+
+            if ( erro == OK)
+               l = insere_lista_coords(l,c);
+
+        }
+    return l;
+
+}
+LISTA add_coords_sul(LISTA l,ESTADO *e)
+{
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
+
+    for (int i =-1; i <2 ; ++i)
+    {
+        COORDENADA c = {jC+i,jL +1};
+        ERROS erro = valido(e,c);
+        if ( erro == OK)
+            l = insere_lista_coords(l,c);
+
+    }
+    return l;
+
+}
+
+LISTA add_coords_este(LISTA l,ESTADO *e)
+{
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
+
+    for (int i =-1; i <2 ; ++i)
+    {
+        COORDENADA c = {jC+1,jL +i};
+        ERROS erro = valido(e,c);
+        if ( erro == OK)
+           l = insere_lista_coords(l,c);
+
+    }
+    return l;
+
+}
+LISTA add_coords_oeste(LISTA l,ESTADO *e)
+{
+    int jL = obter_pos_jogador(e).linha;
+    int jC = obter_pos_jogador(e).coluna;
+
+    for (int i =-1; i <2 ; ++i)
+    {
+        COORDENADA c = {jC-1,jL +i};
+        ERROS erro = valido(e,c);
+        if ( erro == OK)
+        {
+
+           l = insere_lista_coords(l, c);
+        }
+    }
+    return l;
+
+}
+
+
+LISTA add_coords_lista(LISTA l,ESTADO *e)
+{
+
+    if (obter_jogador_atual(e) == 1)
+    {
+        l = add_coords_norte(l,e); // COORDENADAS ULTIMAS SAO AS QUE FICAM MAIS LONGE DO OBJETIVO
+        l = add_coords_este(l,e);
+        l = add_coords_oeste(l,e);
+        l = add_coords_sul(l,e); // FICA na cabeça as coordenadas mais  para sul;
+        // sendo estas as preferenciais para chegar ao fim;
+
+    }
+    else
+    {
+        l = add_coords_sul(l,e); // COORDENADAS ULTIMAS SAO AS QUE FICAM MAIS LONGE DO OBJETIVO
+        l = add_coords_oeste(l,e);
+        l = add_coords_este(l,e);
+        l = add_coords_norte(l,e); //FICA na cabeça as coordenadas mais para norte;
+    }
+    LISTA clone = l;
+    while (!lista_esta_vazia(clone))
+    {
+
+        char *str = (char *) devolve_cabeca(clone);
+        printf("Valor guardado : %s\n",str);
+        clone = proximo(clone);
+    }
+    return l;
+
+
+
+}
+
+int check_lado_oeste(ESTADO *e)// testa se tem pecas pretas na esquerda;
 {
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
@@ -42,7 +155,7 @@ int check_lado_oeste(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na esqu
 }
 
 
-int check_lado_este(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na direita;
+int check_lado_este(ESTADO *e)// testa se tem pecas pretas na direita;
 {
 
     int jL = obter_pos_jogador(e).linha;
@@ -80,7 +193,7 @@ int check_lado_este(ESTADO *e,COORDENADA c)// testa se tem pecas pretas na direi
 
 
 
-int check_lado_sul(ESTADO *e,COORDENADA c)// testa se tem pecas pretas emcima;
+int check_lado_sul(ESTADO *e)// testa se tem pecas pretas emcima;
 
 {
 
@@ -121,7 +234,7 @@ int check_lado_sul(ESTADO *e,COORDENADA c)// testa se tem pecas pretas emcima;
 
 
 
-int check_lado_norte(ESTADO *e,COORDENADA c)// testa se tem pecas pretas em cima;
+int check_lado_norte(ESTADO *e)// testa se tem pecas pretas em cima;
 {
 
     int jL = obter_pos_jogador(e).linha;
@@ -188,7 +301,7 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
     ERROS erro = valido(estado, c);
     if (erro == OK)
     {
-
+printf("A qui esta a coord %s\n",coord_to_str(c));
         if ( obter_numero_de_jogadas(estado) == 0)
         {
             incr_numero_de_jogadas(estado);
@@ -230,8 +343,8 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
     }
 
 
-    if (check_lado_este(estado, c) && check_lado_norte(estado, c) &&
-               check_lado_oeste(estado, c) && check_lado_sul(estado, c))
+    if (check_lado_este(estado) && check_lado_norte(estado) &&
+               check_lado_oeste(estado) && check_lado_sul(estado))
         // o jogador nao pode sair;
     {
         int jog = obter_jogador_atual(estado);

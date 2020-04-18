@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "lista.h"
 
 #define BUF_SIZE 1024
 
@@ -23,9 +24,6 @@ void reconstruir_jogadas(ESTADO *e,int num_jog)
                 jogar(e,cords2);
             }
         }
-
-
-
 
     }
 
@@ -195,22 +193,16 @@ int interpretador(ESTADO *e,FILE *file)
         }
 
     }
-    if (strcmp(linha,"Q\n") == 0)
-
-        return 0;
-
 
     if (strcmp(linha,"Q\n") == 0)
-    {
         return 0;
-    }
+
     if (sscanf(linha,"pos %d",&num_jog) == 1)
     {
         num_jog--;
         zerar_tabuleiro(e);
         reconstruir_jogadas(e,num_jog);
         mostrar_tabuleiro(e,stdout);
-        return 1;
 
     }
     if (strcmp(linha,"movs\n") == 0)
@@ -218,7 +210,18 @@ int interpretador(ESTADO *e,FILE *file)
         printf("\n");
         print_movs_tab(e);
 
-        return 1;
+
+    }
+    if (strcmp(linha,"jog\n") == 0)
+    {
+        LISTA l = NULL;
+        l = add_coords_lista(l,e);
+        char* coords = devolve_cabeca(l);
+        jogar(e ,str_to_coord(coords) );
+        mostrar_tabuleiro(e,stdout);
+
+
+
     }
 
 

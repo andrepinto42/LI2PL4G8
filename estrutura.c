@@ -5,9 +5,14 @@
 #include <string.h>
 #define BUF_SIZE 1024
 
+char* coord_to_str(COORDENADA c)
+{
+    char *s = malloc(sizeof(1));
+    s[0] = c.coluna + 97;
+    s[1] = (8 - c.linha) + 48;
 
-
-
+    return s;
+}
 
 COORDENADA str_to_coord(char jog[])
 {

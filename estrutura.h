@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "lista.h"
+
 
 typedef enum {
     OK,
@@ -41,6 +43,7 @@ typedef struct {
     int num_comando;
 } ESTADO;
 
+
 void add_jogadas(ESTADO *e,COORDENADA c);
 void print_movs(ESTADO *e,FILE *file);
 ESTADO *inicializar_estado();
@@ -62,7 +65,7 @@ void set_num_jogadas(ESTADO *e,int num_jogs);
 void zerar_tabuleiro(ESTADO *e);
 int  check_jogada_conteudo(JOGADA j);
 void reconstruir_jogadas(ESTADO *e,int num_jogs);
-
+char* coord_to_str(COORDENADA c);
 void print_movs_tab(ESTADO *e);
 COORDENADA str_to_coord(char jog[]);
 
