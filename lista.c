@@ -45,7 +45,7 @@ int lista_esta_vazia(LISTA L)
     if (L) return 0;
     else return 1;
 }
-
+/*
 int main()
 {
         LISTA L = criar_lista(); // Criar uma lista vazia
@@ -88,3 +88,4 @@ int main()
         return 0;
 
 }
+ */
