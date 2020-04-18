@@ -11,22 +11,21 @@
 
 void reconstruir_jogadas(ESTADO *e,int num_jog)
 {
-    for (int i = 0; i <= num_jog  ; ++i)
+    for (int i = 0; i <= num_jog; ++i)
     {
-        int status = check_jogada_conteudo( e->jogadas[i]);
+        int status = check_jogada_conteudo(e->jogadas[i]);
         if (status == 2 || status == 1)
         {
             COORDENADA cords1 = e->jogadas[i].jogador1;
-            jogar(e,cords1);
+            jogar(e, cords1);
             if (status == 2)
             {
                 COORDENADA cords2 = e->jogadas[i].jogador2;
-                jogar(e,cords2);
+                jogar(e, cords2);
             }
         }
 
     }
-
 }
 
 ERROS ler_tabuleiro(ESTADO *e,FILE * file)
