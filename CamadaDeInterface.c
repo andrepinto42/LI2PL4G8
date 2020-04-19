@@ -8,7 +8,7 @@
 
 #define BUF_SIZE 1024
 
-
+// Funçao que reconstroi a jogada apos o jogador jogar 
 void reconstruir_jogadas(ESTADO *e,int num_jog)
 {
     for (int i = 0; i <= num_jog; ++i)
@@ -27,7 +27,7 @@ void reconstruir_jogadas(ESTADO *e,int num_jog)
 
     }
 }
-
+// Funçao que le o tabuleiro e coloca a informaçao contida em dados.txt
 ERROS ler_tabuleiro(ESTADO *e,FILE * file)
 {
     int max=0,player = 1;
@@ -39,7 +39,7 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
         for (int c = 0; c <8 ; ++c)
         {
             COORDENADA C = {c,l};
-            set_casa(e,C,(CASA) linha[c]); // coloca no estado a informacao contida em dados.txt
+            set_casa(e,C,(CASA) linha[c]); 
         }
     }
 
@@ -86,7 +86,7 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
 }
 
 
-// Função que imprime o tabuleiro
+// Função que imprime o tabuleiro e mostra cada estado da casa no terminal 
 void mostrar_tabuleiro(ESTADO *e,FILE *f)
 {
     for (int j = 0; j <8 ; ++j)
@@ -100,7 +100,7 @@ void mostrar_tabuleiro(ESTADO *e,FILE *f)
             else if (j == 7 && i == 0)
                 printf ("1");
             else
-            printf("%c",obter_estado_casa(e,j,i));//mostra cada estado da casa no terminal
+            printf("%c",obter_estado_casa(e,j,i));
         }
         printf("\n");
     }
@@ -114,7 +114,7 @@ void mostrar_tabuleiro(ESTADO *e,FILE *f)
         printf("\n");
 
 }
-
+// funçao que grava o tabuleiro
 void gravar_tabuleiro(ESTADO *e,char *filename)
 {
     FILE *f = fopen(filename,"w");
