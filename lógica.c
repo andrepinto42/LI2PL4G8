@@ -21,13 +21,17 @@ LISTA add_coords_norte(LISTA l,ESTADO *e)
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
 
-    for (int i =-1; i <2 ; ++i)
+    for (int i =0; i <= 1 ; ++i)
         {
             COORDENADA c = {jC+i,jL -1};
             ERROS erro = valido(e,c);
 
             if ( erro == OK)
-               l = insere_lista_coords(l,c);
+            {
+                l = insere_lista_coords(l,c);
+
+            }
+
 
         }
     return l;
@@ -38,12 +42,15 @@ LISTA add_coords_sul(LISTA l,ESTADO *e)
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
 
-    for (int i =-1; i <2 ; ++i)
+    for (int i =0; i >= -1 ; i--)
     {
         COORDENADA c = {jC+i,jL +1};
         ERROS erro = valido(e,c);
-        if ( erro == OK)
+        if ( erro == OK){
             l = insere_lista_coords(l,c);
+
+        }
+
 
     }
     return l;
@@ -55,12 +62,15 @@ LISTA add_coords_este(LISTA l,ESTADO *e)
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
 
-    for (int i =-1; i <2 ; ++i)
+    for (int i =1; i >=0 ; i--)
     {
         COORDENADA c = {jC+1,jL +i};
         ERROS erro = valido(e,c);
-        if ( erro == OK)
-           l = insere_lista_coords(l,c);
+        if ( erro == OK){
+            l = insere_lista_coords(l,c);
+
+        }
+
 
     }
     return l;
@@ -71,15 +81,14 @@ LISTA add_coords_oeste(LISTA l,ESTADO *e)
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
 
-    for (int i =-1; i <2 ; ++i)
+    for (int i =-1; i <=0 ; ++i)
     {
         COORDENADA c = {jC-1,jL +i};
         ERROS erro = valido(e,c);
-        if ( erro == OK)
-        {
-
-           l = insere_lista_coords(l, c);
+        if ( erro == OK){
+            l = insere_lista_coords(l, c);
         }
+
     }
     return l;
 
@@ -105,14 +114,7 @@ LISTA add_coords_lista(LISTA l,ESTADO *e)
         l = add_coords_este(l,e);
         l = add_coords_norte(l,e); //FICA na cabeça as coordenadas mais para norte;
     }
-    LISTA clone = l;
-    while (!lista_esta_vazia(clone))
-    {
 
-        char *str = (char *) devolve_cabeca(clone);
-        printf("Valor guardado : %s\n",str);
-        clone = proximo(clone);
-    }
     return l;
 
 
@@ -274,6 +276,8 @@ int check_lado_norte(ESTADO *e)// testa se tem pecas pretas em cima;
 
 ERROS valido(ESTADO *e , COORDENADA c)
 {
+   if ( c.linha < 0 || c.coluna < 0 || c.linha >= 8 || c.coluna >= 8)
+       return COORDENADA_INVALIDA;
     int distlinha = pow(c.linha - obter_pos_jogador(e).linha,2);
     int distcoluna = pow(c.coluna - obter_pos_jogador(e).coluna,2);
 
@@ -296,12 +300,11 @@ ERROS valido(ESTADO *e , COORDENADA c)
 ERROS jogar (ESTADO *estado, COORDENADA c)
 {
 
-    printf("jogar %d %d\n", c.coluna, c.linha);
+    printf("Jogar c:%d l:%d\n", c.coluna, c.linha);
     COORDENADA posicao_atual = obter_pos_jogador(estado);
     ERROS erro = valido(estado, c);
     if (erro == OK)
     {
-printf("A qui esta a coord %s\n",coord_to_str(c));
         if ( obter_numero_de_jogadas(estado) == 0)
         {
             incr_numero_de_jogadas(estado);

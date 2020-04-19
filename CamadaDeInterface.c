@@ -216,9 +216,18 @@ int interpretador(ESTADO *e,FILE *file)
         LISTA l = NULL;
         l = add_coords_lista(l,e);
         char* coords = devolve_cabeca(l);
-        jogar(e ,str_to_coord(coords) );
-        mostrar_tabuleiro(e,stdout);
 
+        ERROS erro = jogar(e,str_to_coord(coords) );
+        if (erro  == OK )
+        {
+            mostrar_tabuleiro(e, stdout);
+        }
+        else if (erro == ACABOU)
+        {
+            int vencedor = obter_jogador_atual(e);
+            printf("Ganhou o jogador %d.Parabéns!\n", vencedor);
+            return 0;
+        }
 
 
     }
