@@ -5,6 +5,7 @@
 #include <string.h>
 #define BUF_SIZE 1024
 
+// Funçao que passa de coordenada para string 
 char* coord_to_str(COORDENADA c)
 {
     char *s = malloc(sizeof(2));
@@ -13,7 +14,7 @@ char* coord_to_str(COORDENADA c)
 
     return s;
 }
-
+// funçao que passa de string para coordenada
 COORDENADA str_to_coord(char jog[])
 {
     COORDENADA c1;
@@ -23,7 +24,7 @@ COORDENADA str_to_coord(char jog[])
     else return c1 = (COORDENADA){.coluna = -1,.linha = -1};
 }
 
-
+//Funçao de tabuleiro vazio 
 void zerar_tabuleiro(ESTADO *e)
 {
     e->jogador_atual = 1; // O Jogador da primeira jogada
@@ -41,13 +42,13 @@ void zerar_tabuleiro(ESTADO *e)
     e->tab[0][7] = DOIS;
 }
 
-
+// Funçao que muda numero de jogadas 
 void set_num_jogadas(ESTADO *e,int num_jogs)
 {
     e->num_jogadas = num_jogs;
 }
 
-
+//Funçao que altera as jogada no jogador 
 void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
 {
     if (jogador == 1)
@@ -60,7 +61,7 @@ void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
         e->jogadas[num_jog].jogador2 = c;
 
 }
-
+//
 void add_jogadas(ESTADO *e,COORDENADA c)
 {
     if (e->jogador_atual == 1)
@@ -92,7 +93,7 @@ int check_jogada_conteudo(JOGADA j)
     else return 0; // A jogada é vazia;
 }
 
-
+//Funçao que 
 void print_movs_tab(ESTADO *e)
 {
     int i=0,check;
