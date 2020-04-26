@@ -7,7 +7,7 @@
 
 char* coord_to_str(COORDENADA c)
 {
-    char *s = malloc(sizeof(1));
+    char *s = malloc(sizeof(2));
     s[0] = c.coluna + 97;
     s[1] = (8 - c.linha) + 48;
 
@@ -79,6 +79,9 @@ int check_jogada_conteudo(JOGADA j)
     int j2linha = j.jogador2.linha ;
     int j2coluna = j.jogador2.coluna ;
 
+    if (j1linha == -2 && j1coluna == -2)
+        return -1;
+
     if (j1linha >= 0 && j1coluna >= 0)
     {
         if (j2linha >=0 && j2coluna >= 0)
@@ -93,6 +96,7 @@ int check_jogada_conteudo(JOGADA j)
 void print_movs_tab(ESTADO *e)
 {
     int i=0,check;
+
 
     while (check = check_jogada_conteudo( e->jogadas[i]) )
     {
@@ -115,7 +119,10 @@ void print_movs_tab(ESTADO *e)
 void print_movs(ESTADO *e,FILE *file)
 {
     int i=0,check;
-
+    if (check_jogada_conteudo( e->jogadas[i]) == -1)
+    {
+        fprintf(file,"01: ");
+    }
     while (check = check_jogada_conteudo( e->jogadas[i]) )
     {
         if (( check == 2) || (check == 1) )
@@ -161,8 +168,8 @@ COORDENADA obter_pos_jogador(ESTADO *e)
     {
         for ( int j =0; j <8 ; ++j)
         {
-           if ( e->tab[i][j] == BRANCA)
-               return  joga =(COORDENADA){.linha = i,.coluna = j};
+            if ( e->tab[i][j] == BRANCA)
+                return  joga =(COORDENADA){.linha = i,.coluna = j};
         }
     }
 }
@@ -251,6 +258,8 @@ ESTADO *inicializar_estado()
         e->jogadas[k].jogador2.coluna = -1;
         e->jogadas[k].jogador2.linha  = -1;
     }
+    e->jogadas[0].jogador1.coluna = -2;
+    e->jogadas[0].jogador1.linha  = -2;
 
     return e;
 }

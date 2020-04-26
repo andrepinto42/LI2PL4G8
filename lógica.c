@@ -5,6 +5,8 @@
 #include <string.h>
 #include <math.h>
 #include "lista.h"
+#include <time.h>
+
 
 ERROS valido(ESTADO *e , COORDENADA c);
 
@@ -85,7 +87,8 @@ LISTA add_coords_oeste(LISTA l,ESTADO *e)
     {
         COORDENADA c = {jC-1,jL +i};
         ERROS erro = valido(e,c);
-        if ( erro == OK){
+        if ( erro == OK)
+        {
             l = insere_lista_coords(l, c);
         }
 
@@ -117,9 +120,57 @@ LISTA add_coords_lista(LISTA l,ESTADO *e)
 
     return l;
 
-
-
 }
+
+LISTA add_coords_random(LISTA l,ESTADO *e)
+{
+
+    srandom(time(NULL));
+
+        int op = -1,rand = -1,executados[4],check = 1;
+    for (int i = 0; i < 4; ++i)
+    {
+        executados[0] = -1;
+        executados[1] = -1;
+        executados[2] = -1;
+        executados[3] = -1;
+        do
+            {
+
+
+            op = random() % 4;
+            for (int j = 0; j < i; ++j)
+            {
+                if (executados[j] == op)
+                    check = 0;
+            }
+        } while  (check == 0);
+
+
+
+        switch (op)
+        {
+            case 0 :
+                l = add_coords_norte(l, e);
+                break;
+            case 1 :
+                l = add_coords_sul(l, e);
+                break;
+            case 2 :
+                l = add_coords_oeste(l, e);
+                break;
+            case 3 :
+                l = add_coords_este(l, e);
+                break;
+        }
+        executados[i] = op;
+
+    }
+
+    return l;
+}
+
+
 
 int check_lado_oeste(ESTADO *e)// testa se tem pecas pretas na esquerda;
 {

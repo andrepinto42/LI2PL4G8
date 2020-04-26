@@ -18,6 +18,7 @@ LISTA add_coords_este(LISTA l,ESTADO *e);
 LISTA add_coords_oeste(LISTA l,ESTADO *e);
 
 LISTA add_coords_lista(LISTA l,ESTADO *e);
+LISTA add_coords_random(LISTA l,ESTADO *e);
 
 
 

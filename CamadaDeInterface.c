@@ -52,7 +52,6 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
 
 
 
-
     char linha[BUF_SIZE];
     while(fgets(linha, BUF_SIZE, file) != NULL)
     {
@@ -211,13 +210,35 @@ int interpretador(ESTADO *e,FILE *file)
 
 
     }
-    if (strcmp(linha,"jog\n") == 0)
+    if (strcmp(linha,"jog1\n") == 0)
     {
         LISTA l = NULL;
-        l = add_coords_lista(l,e);
-        char* coords = devolve_cabeca(l);
+        l = add_coords_lista(l,e); // adiciona na lista
 
-        ERROS erro = jogar(e,str_to_coord(coords) );
+        char* coords = devolve_cabeca(l); // coordenada da lista
+
+        ERROS erro = jogar(e,str_to_coord(coords) ); // jogar a coordenada
+        if (erro  == OK )
+        {
+            mostrar_tabuleiro(e, stdout);
+        }
+        else if (erro == ACABOU)
+        {
+            int vencedor = obter_jogador_atual(e);
+            printf("Ganhou o jogador %d.Parabéns!\n", vencedor);
+            return 0;
+        }
+
+
+    }
+    if (strcmp(linha,"jog2\n") == 0)
+    {
+        LISTA l = NULL;
+        l = add_coords_random(l,e); // adiciona na lista
+
+        char* coords = devolve_cabeca(l); // coordenada da lista
+
+        ERROS erro = jogar(e,str_to_coord(coords) ); // jogar a coordenada
         if (erro  == OK )
         {
             mostrar_tabuleiro(e, stdout);
