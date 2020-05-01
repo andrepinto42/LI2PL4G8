@@ -127,7 +127,7 @@ LISTA add_coords_random(LISTA l,ESTADO *e)
 
     srandom(time(NULL));
 
-        int op = -1,rand = -1,executados[4],check = 1;
+        int op = -1,executados[4],check = 1;
     for (int i = 0; i < 4; ++i)
     {
         executados[0] = -1;
@@ -176,7 +176,8 @@ int check_lado_oeste(ESTADO *e)// testa se tem pecas pretas na esquerda;
 {
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
-    int offset= -1;
+    int offset = -1;
+
 
     if (jC == 0) return 1; // Não pode ir para a esquerda;
     else if (jL == 0)
@@ -197,7 +198,7 @@ int check_lado_oeste(ESTADO *e)// testa se tem pecas pretas na esquerda;
     }
     else
     {
-        for (offset ; offset <=1 ; ++offset)
+        for (offset = -1 ; offset <=1 ; ++offset)
         {
             if (!(obter_estado_casa(e,jL+offset,jC-1) == PRETA))
                 break;
@@ -213,7 +214,8 @@ int check_lado_este(ESTADO *e)// testa se tem pecas pretas na direita;
 
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
-    int offset= -1;
+    int offset = -1;
+
 
     if (jC == 7) return 1; // Não pode ir para a direita;
     else if (jL == 0)
@@ -234,7 +236,7 @@ int check_lado_este(ESTADO *e)// testa se tem pecas pretas na direita;
     }
     else
     {
-        for (offset ; offset <=1 ; ++offset)
+        for (offset = -1 ; offset <=1 ; ++offset)
         {
             if (!(obter_estado_casa(e,jL+offset,jC+1) == PRETA))
                 break;
@@ -253,6 +255,7 @@ int check_lado_sul(ESTADO *e)// testa se tem pecas pretas emcima;
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
     int offset= -1;
+
 
 
     if (jL == 0) return 1; // Não pode ir para cima;
@@ -274,7 +277,7 @@ int check_lado_sul(ESTADO *e)// testa se tem pecas pretas emcima;
     }
     else
         {
-            for (offset ; offset <=1 ; ++offset)
+            for (offset = -1 ; offset <=1 ; ++offset)
             {
              if (!(obter_estado_casa(e,jL+1,jC+offset) == PRETA))
                 break;
@@ -292,7 +295,8 @@ int check_lado_norte(ESTADO *e)// testa se tem pecas pretas em cima;
 
     int jL = obter_pos_jogador(e).linha;
     int jC = obter_pos_jogador(e).coluna;
-    int offset= -1;
+    int offset = -1;
+
 
     if (jL == 0) return 1; // Não pode ir para cima;
     else if (jC == 0)
@@ -313,7 +317,7 @@ int check_lado_norte(ESTADO *e)// testa se tem pecas pretas em cima;
     }
     else
         {
-            for (offset ; offset <=1 ; ++offset)
+            for (offset = -1 ; offset <=1 ; ++offset)
             {
              if (!(obter_estado_casa(e,jL-1,jC+offset) == PRETA))
                 break;

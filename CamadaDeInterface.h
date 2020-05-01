@@ -5,8 +5,8 @@
 #include <string.h>
 #include <math.h>
 
-void mostrar_tabuleiro(ESTADO *e,FILE *file);
-int interpretador(ESTADO *e,FILE *file);
+void mostrar_tabuleiro(ESTADO *e);
+int interpretador(ESTADO *e);
 ERROS ler_tabuleiro(ESTADO *e,FILE * file);
 ERROS ler(ESTADO *e,char *file);
 void gravar_tabuleiro(ESTADO *e,char* filename);

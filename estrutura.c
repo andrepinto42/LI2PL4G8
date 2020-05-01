@@ -99,7 +99,7 @@ void print_movs_tab(ESTADO *e)
     int i=0,check;
 
 
-    while (check = check_jogada_conteudo( e->jogadas[i]) )
+    while ( (check =  (check_jogada_conteudo( e->jogadas[i]) )  ) )
     {
         if (( check == 2) || (check == 1) )
         {
@@ -120,11 +120,12 @@ void print_movs_tab(ESTADO *e)
 void print_movs(ESTADO *e,FILE *file)
 {
     int i=0,check;
-    if (check_jogada_conteudo( e->jogadas[i]) == -1)
+    /*if (check_jogada_conteudo( e->jogadas[i]) == -1)
     {
         fprintf(file,"01: ");
     }
-    while (check = check_jogada_conteudo( e->jogadas[i]) )
+     */
+    while ( (check = check_jogada_conteudo( e->jogadas[i]) ) )
     {
         if (( check == 2) || (check == 1) )
         {
@@ -142,10 +143,6 @@ void print_movs(ESTADO *e,FILE *file)
 }
 
 
-void set_ultima_jogada(ESTADO *e,COORDENADA c)
-{
-    COORDENADA ult_jog = {c.linha,c.coluna};
-}
 
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c)
 {
@@ -173,6 +170,7 @@ COORDENADA obter_pos_jogador(ESTADO *e)
                 return  joga =(COORDENADA){.linha = i,.coluna = j};
         }
     }
+    return joga = (COORDENADA){.linha = -1, .coluna = -1};
 }
 
 
