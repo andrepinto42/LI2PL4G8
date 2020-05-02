@@ -61,7 +61,7 @@ void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
         e->jogadas[num_jog].jogador2 = c;
 
 }
-//
+//Funçao que adiciona jogadas
 void add_jogadas(ESTADO *e,COORDENADA c)
 {
     if (e->jogador_atual == 1)
@@ -71,7 +71,7 @@ void add_jogadas(ESTADO *e,COORDENADA c)
 
 }
 
-
+//Funçao que verifica as jogadas dos jogadores
 int check_jogada_conteudo(JOGADA j)
 {
     int j1linha = j.jogador1.linha ;
@@ -93,7 +93,7 @@ int check_jogada_conteudo(JOGADA j)
     else return 0; // A jogada é vazia;
 }
 
-//Funçao que 
+//Funçao que imprime todas as jogadas feitas para o tabuleiro
 void print_movs_tab(ESTADO *e)
 {
     int i=0,check;
@@ -116,7 +116,7 @@ void print_movs_tab(ESTADO *e)
     printf("\n");
 }
 
-
+//Funçao que imprime todas as jogadas feitas para o ficheiro 
 void print_movs(ESTADO *e,FILE *file)
 {
     int i=0,check;
@@ -143,12 +143,13 @@ void print_movs(ESTADO *e,FILE *file)
 }
 
 
-
+//Funçao que poe peça branca no tabuleiro
 void set_Branca_Tabuleiro(ESTADO *e,COORDENADA c)
 {
 
     e->tab[c.linha][c.coluna] = BRANCA;
 }
+//Funçao que poe peças preta no tabuleiro
 void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c)
 {
 
@@ -157,7 +158,7 @@ void set_Preta_Tabuleiro(ESTADO *e,COORDENADA c)
 
 
 
-
+//Funçao que obtem a posiçao do jogador 
 COORDENADA obter_pos_jogador(ESTADO *e)
 {
     COORDENADA joga;
@@ -174,38 +175,38 @@ COORDENADA obter_pos_jogador(ESTADO *e)
 }
 
 
-
+// Funçao que retorna o estado
 CASA obter_estado_casa(ESTADO *e, int linha,int coluna)
 {
     return e->tab[linha][coluna];
 }
-
+//funçao que altera para o jogador atual
 void set_jogador_atual(ESTADO *e,int jogador)
 {
     e->jogador_atual = jogador;
 }
-
+//Funçao que acresenta as jogadas 
 void incr_numero_de_jogadas(ESTADO *e)
 {
     e->num_jogadas = e->num_jogadas + 1;
 }
-
+//Funçao que obtem qual e o jogador atual
 int obter_jogador_atual(ESTADO *estado)
 {
     return estado->jogador_atual;
 }
-
+//Funçao que obtem o numero de jogadas 
 int obter_numero_de_jogadas(ESTADO *estado)
 {
     return estado->num_jogadas;
 }
-
+//Funçao que retorna quantos comandos ja foram feitos
 int obter_num_comando(ESTADO *e)
 {
     return e->num_comando;
 }
 
-
+//Funçao auxiliar para verificar se e possivel continuar a jogada dependedo do tipo de 'erro' 
 void print_erro(ERROS erro)
 {
     if      (erro == OK) printf("OK\n");
@@ -217,7 +218,7 @@ void print_erro(ERROS erro)
     else printf("Coordenada Ocupada\n");
 
 }
-
+// Funçao que imprime o estado
 int print_prompt(ESTADO *e)
 {
     printf("# %d PL%d (%d)> ",
@@ -228,12 +229,13 @@ int print_prompt(ESTADO *e)
 
 
 
-
+//Funçao que altera a casa que a peça se encontra
 void set_casa(ESTADO *e,COORDENADA c,CASA casita)
 {
     e->tab[c.linha][c.coluna] = casita;
 }
 
+//Funçao que inicializa o estado
 ESTADO *inicializar_estado()
 {
     ESTADO *e = (ESTADO *) malloc(sizeof(ESTADO));
