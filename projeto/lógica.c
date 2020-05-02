@@ -10,6 +10,7 @@
 
 ERROS valido(ESTADO *e , COORDENADA c);
 
+//funçao que insere coordenadas numa lista 
 LISTA insere_lista_coords(LISTA l,COORDENADA c)
 {
         char* s = coord_to_str(c);
@@ -17,7 +18,7 @@ LISTA insere_lista_coords(LISTA l,COORDENADA c)
         return l;
 }
 
-
+//funçao que adiciona coordenadas abaixo da peça atual 
 LISTA add_coords_norte(LISTA l,ESTADO *e)
 {
     int jL = obter_pos_jogador(e).linha;
@@ -39,6 +40,7 @@ LISTA add_coords_norte(LISTA l,ESTADO *e)
     return l;
 
 }
+//Funçao que adiciona coordenadas acima da peça atual 
 LISTA add_coords_sul(LISTA l,ESTADO *e)
 {
     int jL = obter_pos_jogador(e).linha;
@@ -58,7 +60,7 @@ LISTA add_coords_sul(LISTA l,ESTADO *e)
     return l;
 
 }
-
+//funçao que adiciona coordenadas a este da peça atual
 LISTA add_coords_este(LISTA l,ESTADO *e)
 {
     int jL = obter_pos_jogador(e).linha;
@@ -78,6 +80,7 @@ LISTA add_coords_este(LISTA l,ESTADO *e)
     return l;
 
 }
+//Funçao que adiciona coordenadas a oeste da peça atual
 LISTA add_coords_oeste(LISTA l,ESTADO *e)
 {
     int jL = obter_pos_jogador(e).linha;
@@ -97,7 +100,7 @@ LISTA add_coords_oeste(LISTA l,ESTADO *e)
 
 }
 
-
+// Funçao que para o bot  -atraves do caminho mais curto -segue dois trajetos possiveis 
 LISTA add_coords_lista(LISTA l,ESTADO *e)
 {
 
@@ -121,7 +124,7 @@ LISTA add_coords_lista(LISTA l,ESTADO *e)
     return l;
 
 }
-
+// Funçao que faz com que o bot escolha aleatoriamnete a proxima posiçao 
 LISTA add_coords_random(LISTA l,ESTADO *e)
 {
 
@@ -171,7 +174,7 @@ LISTA add_coords_random(LISTA l,ESTADO *e)
 }
 
 
-
+//Funçao que verifica o lado oeste da peça 
 int check_lado_oeste(ESTADO *e)// testa se tem pecas pretas na esquerda;
 {
     int jL = obter_pos_jogador(e).linha;
@@ -208,7 +211,7 @@ int check_lado_oeste(ESTADO *e)// testa se tem pecas pretas na esquerda;
     else return 0;
 }
 
-
+//Funçao que verifica o lado este 
 int check_lado_este(ESTADO *e)// testa se tem pecas pretas na direita;
 {
 
@@ -247,7 +250,7 @@ int check_lado_este(ESTADO *e)// testa se tem pecas pretas na direita;
 }
 
 
-
+//Funçao que verifica o lado sul
 int check_lado_sul(ESTADO *e)// testa se tem pecas pretas emcima;
 
 {
@@ -289,7 +292,7 @@ int check_lado_sul(ESTADO *e)// testa se tem pecas pretas emcima;
 }
 
 
-
+//Funçao que verifica abaixo da peça atual
 int check_lado_norte(ESTADO *e)// testa se tem pecas pretas em cima;
 {
 
@@ -328,7 +331,7 @@ int check_lado_norte(ESTADO *e)// testa se tem pecas pretas em cima;
 }
 
 
-
+//Funçao que verifica se a jogada e válida
 ERROS valido(ESTADO *e , COORDENADA c)
 {
    if ( c.linha < 0 || c.coluna < 0 || c.linha >= 8 || c.coluna >= 8)
@@ -351,7 +354,7 @@ ERROS valido(ESTADO *e , COORDENADA c)
 
 }
 
-
+//Funçao que atraves das coordenadas inseridas averigua ( recorrendo a outras funçoes auxiliares ) se e possivel continuar a jogar ou fim do jogo ;
 ERROS jogar (ESTADO *estado, COORDENADA c)
 {
 
