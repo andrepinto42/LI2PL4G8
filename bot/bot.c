@@ -144,9 +144,9 @@ int check_jogada_conteudo(JOGADA j)
     if (j1linha >= 0 && j1coluna >= 0)
     {
         if (j2linha >=0 && j2coluna >= 0)
-
             return 2; //A Jogada tem coordenadas para ambos os jogadores;
-        else return 1; // A jogada só tem coordenadas para o 1º Jogador
+
+            else return 1; // A jogada só tem coordenadas para o 1º Jogador
     }
     else return 0; // A jogada é vazia;
 }
@@ -162,16 +162,19 @@ void print_movs(ESTADO *e,FILE *file)
     }
     while ( (check = check_jogada_conteudo( e->jogadas[i]) ) )
     {
-        if (( check == 2) || (check == 1) )
-        {
-            if (e->num_jogadas <10)
-                fprintf(file,"0");
+        if ((check == 2) || (check == 1)) {
+            if (e->num_jogadas < 10)
+                fprintf(file, "0");
 
-            fprintf(file,"%d: %c%d", i+1,97 + e->jogadas[i].jogador1.coluna, 8-e->jogadas[i].jogador1.linha);
-            if (check == 2)
-                fprintf(file," %c%d\n",                  97 + e->jogadas[i].jogador2.coluna, 8-e->jogadas[i].jogador2.linha);
+            fprintf(file, "%d: %c%d", i + 1, 97 + e->jogadas[i].jogador1.coluna, 8 - e->jogadas[i].jogador1.linha);
+            if (check == 2) {
+                fprintf(file, " %c%d", 97 + e->jogadas[i].jogador2.coluna, 8 - e->jogadas[i].jogador2.linha);
+                if (check_jogada_conteudo(e->jogadas[i + 1]))
+                    fprintf(file, "\n");
+            }
+
         }
-        if (check == 1) fprintf(file,"\n");
+
         i++;
     }
     fprintf(file,"\n");
@@ -234,10 +237,11 @@ void set_jogadas(ESTADO *e,COORDENADA c,int jogador,int num_jog)
 
 void add_jogadas(ESTADO *e,COORDENADA c)
 {
+
     if (e->jogador_atual == 1)
-        e->jogadas[e->num_jogadas -1].jogador1 = c;
+        e->jogadas[e->num_jogadas].jogador1 = c;
     else
-        e->jogadas[e->num_jogadas -1].jogador2 = c;
+        e->jogadas[e->num_jogadas].jogador2 = c;
 
 }
 
@@ -292,7 +296,7 @@ void gravar_tabuleiro(ESTADO *e,char *filename)
 
 ERROS ler_tabuleiro(ESTADO *e,FILE * file)
 {
-    int max=0,player = 1,var=0;
+    int max=0,player = 1;
     for (int l = 0; l < 8; ++l)
     {
         char linha[BUF_SIZE];
@@ -306,41 +310,58 @@ ERROS ler_tabuleiro(ESTADO *e,FILE * file)
     }
 
 
-
-
-
     char fake[BUF_SIZE];
-    if (fgets(fake,BUF_SIZE,file) == NULL) {
+    if ( fgets(fake,BUF_SIZE,file) )
+    {
+
+    }
+
 
 
         char linha[BUF_SIZE];
-        while (fgets(linha, BUF_SIZE, file) != NULL) {
-            var = 1;
-            int num_jog;
+        while (fgets(linha, BUF_SIZE, file) != NULL)
+        {
+            int num_jog = -1 ;
             char jog1[BUF_SIZE];
             char jog2[BUF_SIZE];
             int num_tokens = sscanf(linha, "%d: %s %s", &num_jog, jog1, jog2);
-            if (num_tokens == 3) {
+            if (num_tokens == 3)
+            {
                 COORDENADA c1 = str_to_coord(jog1);
                 COORDENADA c2 = str_to_coord(jog2);
                 set_jogadas(e, c1, 1, num_jog - 1);
                 set_jogadas(e, c2, 2, num_jog - 1);
-            } else if (num_tokens == 2) {
+
+
+            }
+            else if (num_tokens == 2)
+            {
                 COORDENADA c1 = str_to_coord(jog1);
 
                 set_jogadas(e, c1, 1, num_jog - 1);
 
-                player = 2;
             }
-            if (num_jog > max) max = num_jog;
-        }
-        if (var) {
-            set_num_jogadas(e, max);
-            set_jogador_atual(e, player);
+           if (num_jog > max) max = num_jog;
+           if (num_tokens == 3)
+           {
+              player = 1;
+           }
+           else if (num_tokens == 2) player = 2;
+           jog1[0] = 0;
+           jog2[0] = 0;
+
+
 
         }
+
+        set_jogador_atual(e,player);
+        if (obter_jogador_atual(e) == 2)
+            max--;// max se for 1 passa para proxima jogada;
+        set_num_jogadas(e,max);
+
+
         fclose(file);
-    }
+
     return OK;
 }
 
@@ -505,60 +526,44 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
     ERROS erro = valido(estado, c);
     if (erro == OK)
     {
-        if ( obter_numero_de_jogadas(estado) == 0)
-        {
-            incr_numero_de_jogadas(estado);
-        }
+
         if (c.coluna == 7 && c.linha == 0)
 
         {
             set_jogador_atual(estado,2);
-            return ACABOU;
+            erro = ACABOU;
         }
         else if (c.coluna == 0 && c.linha == 7)
         {
             set_jogador_atual(estado,1);
-            return ACABOU;
+            erro = ACABOU;
         }
 
 
         set_Branca_Tabuleiro(estado, c);
         set_Preta_Tabuleiro(estado, posicao_atual);
+
+        // adicionar a jogada
         add_jogadas(estado,c);
-        int jog = obter_jogador_atual(estado);
 
-        if (jog == 1)
-        {
-            set_jogador_atual(estado, 2);
-        }
+        if (erro == ACABOU)
+            return erro;
+
+        if (obter_jogador_atual(estado) == 1)
+            set_jogador_atual(estado,2);
         else
-        {
-            incr_numero_de_jogadas(estado);
-            set_jogador_atual(estado, 1);
-        }
+            set_jogador_atual(estado,1);
+
+
+
+
+
 
 
 
     }
-    else if (erro == COORDENADA_INVALIDA)
-    {
-        return erro;
-    }
-
-/* NAO É NECESSARIO DETETAR AQUI O FIM DO JOGO
-    if (check_lado_este(estado) && check_lado_norte(estado) &&
-        check_lado_oeste(estado) && check_lado_sul(estado))
-        // o jogador nao pode sair;
-    {
-        int jog = obter_jogador_atual(estado);
-        if (jog == 1)
-            set_jogador_atual(estado, 2);
-        else
-            set_jogador_atual(estado, 1);
-        return ACABOU;
-    }
-*/
     return erro;
+
 }
 
 
@@ -571,6 +576,7 @@ ERROS jogar (ESTADO *estado, COORDENADA c)
 
 int main (int argc, char* argv[])
 {
+
 
 if (argc >= 3) {
     char *entrada = argv[1];
@@ -593,9 +599,9 @@ if (argc >= 3) {
     char *coords = devolve_cabeca(l); // coordenada da lista
 
     ERROS erro2 = jogar(e, str_to_coord(coords)); // jogar a coordenada
-
+    //print_movs(e,stdout);
     // GRAVAR NO FICHEIRO
-    if (erro2 == OK)
+    if (erro2 == OK || erro2 == ACABOU)
         gravar_tabuleiro(e, saida);
 
 }
