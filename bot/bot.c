@@ -152,10 +152,9 @@ int check_jogada_conteudo(JOGADA j)
 }
 
 
-
 void print_movs(ESTADO *e,FILE *file)
 {
-    int i=0,check;
+    int i=0,check,var = 0;
     if (check_jogada_conteudo( e->jogadas[i]) == -1)
     {
         fprintf(file,"01: ");
@@ -163,8 +162,11 @@ void print_movs(ESTADO *e,FILE *file)
     while ( (check = check_jogada_conteudo( e->jogadas[i]) ) )
     {
         if ((check == 2) || (check == 1)) {
-            if (e->num_jogadas < 10)
+            if (var < 9 && var <= e->num_jogadas)
+            {
                 fprintf(file, "0");
+                var++;
+            }
 
             fprintf(file, "%d: %c%d", i + 1, 97 + e->jogadas[i].jogador1.coluna, 8 - e->jogadas[i].jogador1.linha);
             if (check == 2) {
@@ -179,6 +181,7 @@ void print_movs(ESTADO *e,FILE *file)
     }
     fprintf(file,"\n");
 }
+
 
 
 
